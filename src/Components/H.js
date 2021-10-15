@@ -5,7 +5,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 const H = ({ text }) => {
   return (
-    <View>
+    <View >
       <Text style={styles.dashboardh1}>{text}</Text>
     </View>
   )

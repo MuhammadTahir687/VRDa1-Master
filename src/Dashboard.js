@@ -102,9 +102,9 @@ export default function Dashboard() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
-        <View style={styles.linkcontainer}>
-          {LINK.map((item,index)=>(<Link key={index} onPress={()=>{setBtn(index)}} color={index==btn?"white":"black"} backgroundColor={index==btn?"black":"white"} text={item.title}/>))}
-        </View>
+        {/*<View style={styles.linkcontainer}>*/}
+        {/*  {LINK.map((item,index)=>(<Link key={index} onPress={()=>{setBtn(index)}} color={index==btn?"white":"black"} backgroundColor={index==btn?"black":"white"} text={item.title}/>))}*/}
+        {/*</View>*/}
         <FlatList horizontal={true} data={DATA} renderItem={({ item, index }) => (
           <Card text1={item.title} text2={parseFloat(item.value).toFixed(1)} iconname={"stats-chart"} />
         )}/>

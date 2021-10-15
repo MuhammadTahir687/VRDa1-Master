@@ -56,12 +56,13 @@ export default StyleSheet.create({
   sicon:{marginVertical:10,elevation:6,marginLeft:5,borderWidth:1,paddingVertical:14.2,borderBottomLeftRadius:50,borderTopLeftRadius:50,paddingHorizontal:14,backgroundColor:"black"},
   sicon1:{marginVertical:10,elevation:6,marginLeft:5,borderWidth:1,paddingVertical:14.2,borderBottomLeftRadius:50,borderTopLeftRadius:50,paddingHorizontal:10,backgroundColor:"black"},
 
-  card:{elevation:8,paddingVertical:15,flex: 1,flexDirection:"row",backgroundColor: 'black', marginHorizontal:4, marginVertical:10,borderRadius:5,alignItems:"center",paddingRight:10},
-  cardtext:{color:"white",textAlign:"left",fontSize:15,fontWeight:"bold"},
-  cardvalue:{color:"white",textAlign:"left",fontSize:12},
-  cardicon:{color:"white",marginLeft:10,marginTop:5},
+  card:{elevation:8,paddingVertical:15,flex: 1,flexDirection:"row",backgroundColor: 'black', marginHorizontal:4, marginVertical:10,borderRadius:5,alignItems:"center",justifyContent:"center",paddingRight:10,width:170,height:80},
+  cardtext:{color:"white",textAlign:"left",fontSize:17,fontWeight:"bold"},
+  cardvalue:{color:"white",textAlign:"left",fontSize:17},
+  cardicon:{color:"white",marginTop:5},
 
   dashboardh1:{ fontWeight: "bold", fontSize: 20, marginLeft: 10},
+    dashboardh2:{ fontWeight: "bold", fontSize: 20, marginLeft: 10,textDecorationLine:"underline"},
   pg1container:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10},
   pgbottomcontainer:{ flex: 1, flexDirection: "row", justifyContent: "space-between" },
   pgbottomtext:{fontSize:12,marginHorizontal:10},
@@ -179,7 +180,7 @@ export default StyleSheet.create({
   winput:{borderBottomWidth: 2, borderBottomColor: "black", marginHorizontal: 20},
 
   rbusdtimage:{flex:1,marginVertical:10,width:150,height:150,resizeMode:"contain",alignSelf:"center",borderWidth:0,borderColor:"black"},
-  rbwalletmsg:{flex:1,textAlign:"center",fontWeight:"bold"},
+  rbwalletmsg:{flex:1,textAlign:"center",fontWeight:"bold",marginHorizontal:10},
 
   loginerror:{color:"red",marginLeft:30,marginTop:3},
   walleterror:{color:"red",marginLeft:20,marginTop:0},
@@ -199,5 +200,24 @@ export default StyleSheet.create({
     shopusdtnoteh1:{fontWeight:"bold",marginLeft:10,},
     shopusdtnotetext2:{marginHorizontal:10,fontSize:13,paddingVertical:5,marginVertical:5,backgroundColor:"white",paddingHorizontal:10,borderRadius:5},
     copy:{backgroundColor:"black",alignSelf:"center",paddingHorizontal:20,paddingVertical:5,borderRadius:5,marginTop:5},
-    copytext:{color:"white"}
+    copytext:{color:"white"},
+
+    shcontainer:{flex:1,alignItems:"center",marginVertical:10},
+    shtext:{fontWeight:"bold",fontSize:18,textDecorationLine:"underline"},
+    vlcontainer:{flex:1,flexDirection:"row",justifyContent:"center",backgroundColor:"white",marginHorizontal:10,borderRadius:10,marginTop:10,paddingVertical:10,elevation:10,borderWidth:4},
+    vltext1:{alignSelf:"center", color:"black",fontWeight:"bold",marginHorizontal:10},
+    vltext2:{paddingHorizontal:10,paddingVertical:5,alignSelf:"center",backgroundColor:"transparent",color:"black",borderRadius:5,fontWeight:"bold"},
+    vwindowcontainer:{flex:1,marginHorizontal:10,backgroundColor:"#d4d0d0",marginVertical:10},
+    vheading:{backgroundColor:"black",color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderTopLeftRadius:5,borderTopRightRadius:5},
+    v2container:{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10},
+    v2containertext1:{flex:1,backgroundColor:"#828080",color:"white",paddingLeft:10,fontWeight:"bold",paddingVertical:5},
+    v2continertext2:{flex:1,backgroundColor:"transparent",color:"black",paddingLeft:10,fontWeight:"bold",paddingVertical:5},
+    v3container:{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10},
+    v3input1:{backgroundColor:"white",marginTop:10,marginHorizontal:10,borderRadius:5},
+    v3input2:{backgroundColor:"white",marginTop:10,marginHorizontal:10,borderRadius:5,textAlignVertical: 'top'},
+    v3h:{backgroundColor:"#828080",marginTop:10,marginHorizontal:10,color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderRadius:5},
+    v3btn:{flex:1,justifyContent:"center",alignItems:"center",backgroundColor:"black",marginVertical:10,marginHorizontal:10,borderRadius:5},
+    v3btntext:{color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold"},
+
+    vreiterror:{color:"red",marginLeft:10}
 })

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Button, Dimensions } from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    FlatList,
+    TouchableOpacity,
+    Button,
+    Dimensions,
+    ActivityIndicator
+} from "react-native";
 import styles from "../StyleSheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from "react-native-modal";
@@ -10,24 +19,28 @@ import { GETAPI } from "../API/APIResponse";
 import MText from "../Components/ModalText";
 import MCText from "../Components/ModalColorText";
 import H from "../Components/H";
+import {getFatalColor} from "react-native/Libraries/LogBox/UI/LogBoxStyle";
+import RH from '../Components/ReportHeading'
 
 export default function OwnershipPurchase() {
   const [isModalVisible, setModalVisible] = useState();
   const [data,setdata]=useState([]);
   const [item,setItem]=useState('');
   const [show, setShow] = useState(false);
+    const [loading, setLoading] = useState(true);
 
   useEffect(async () => {await response()}, []);
   const response = async () => {
     try {
       const response= await GETAPI("/api/own-purchase-report")
-      console.log(response.data)
+        setLoading(false)
       setdata(response.data)
     } catch (e) {console.log(e)}
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <H text={"Ownership Purchases"}/>
+        <ActivityIndicator animating={loading} size="large" color="black" style={styles.activityind} />
+      <RH text={"Ownership Purchases"}/>
       <FlatList data={data}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (

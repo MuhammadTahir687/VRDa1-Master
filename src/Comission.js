@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Button } from "react-native";
+import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Button,ActivityIndicator } from "react-native";
 import styles from "./StyleSheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from "react-native-modal";
@@ -20,14 +20,15 @@ export default function Comission() {
   const [getdata, setGetdata] = useState([]);
   const [item,setItem]=useState('');
   const [show,setShow]=useState(false);
-  const [time,setTime]=useState(0)
+  const [time,setTime]=useState(0);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(async () => {await response();}, []);
+    useEffect(async () => {await response();}, []);
 
   const response = async () => {
     try {
       const response= await GETAPI("api/closing-commissions-logs")
-      console.log("===================",response.data.next_closing_date);
+      setLoading(false)
       setTime(response.data.next_closing_date)
       const res = response.data;
       const array=Object.values(res.logs)
@@ -37,6 +38,7 @@ export default function Comission() {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
+        <ActivityIndicator animating={loading} size="large" color="black" style={styles.activityind} />
       <View style={styles.timerhcontainer}>
         <Text style={styles.timerh}>Next Commissions</Text>
       </View>

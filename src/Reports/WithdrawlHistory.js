@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Button, Dimensions } from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    FlatList,
+    TouchableOpacity,
+    Button,
+    Dimensions,
+    ActivityIndicator
+} from "react-native";
 import styles from "../StyleSheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from "react-native-modal";
@@ -9,7 +18,7 @@ import * as Progress from "react-native-progress";
 import { GETAPI } from "../API/APIResponse";
 import MText from "../Components/ModalText";
 import MCText from "../Components/ModalColorText";
-import H from '../Components/H';
+import RH from '../Components/ReportHeading'
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation } from "@react-navigation/native";
 
@@ -19,18 +28,21 @@ export default function WithdrawlHistory() {
   const [item,setItem]=useState('');
   const [show, setShow] = useState(false);
   const [selecteditem,setSelecteditem]=useState('');
+    const [loading, setLoading] = useState(true);
 
   useEffect(async () => {await response()}, []);
   const response = async () => {
     try {
       const response= await GETAPI("/api/withdrawals")
+        setLoading(false)
       console.log(response.data)
       setdata(response.data)
     } catch (e) {console.log(e)}
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <H text={"Withdraw History"}/>
+        <ActivityIndicator animating={loading} size="large" color="black" style={styles.activityind} />
+      <RH text={"Withdraw History"}/>
       <FlatList data={data}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (

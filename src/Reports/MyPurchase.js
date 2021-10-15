@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, SafeAreaView, FlatList, TouchableOpacity, Button, Dimensions } from "react-native";
+import {
+    View,
+    Text,
+    SafeAreaView,
+    FlatList,
+    TouchableOpacity,
+    Button,
+    Dimensions,
+    ActivityIndicator
+} from "react-native";
 import styles from "../StyleSheet/Style";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Modal from "react-native-modal";
@@ -12,6 +21,7 @@ import MCText from "../Components/ModalColorText";
 import H from '../Components/H'
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation } from "@react-navigation/native";
+import RH from '../Components/ReportHeading';
 
 export default function MyPurchase() {
   const navigation=useNavigation()
@@ -20,17 +30,20 @@ export default function MyPurchase() {
   const [item,setItem]=useState('');
   const [show, setShow] = useState(false);
   const [selectedValue, setSelectedValue] = useState();
+    const [loading, setLoading] = useState(true);
 
   useEffect(async () => {await response()}, []);
   const response = async () => {
     try {
       const response= await GETAPI("/api/purchase-report")
+        setLoading(false)
       setdata(response.data)
     } catch (e) {console.log(e)}
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <H text={"My Purchase"}/>
+        <ActivityIndicator animating={loading} size="large" color="black" style={styles.activityind} />
+      <RH text={"My Purchase"}/>
       <FlatList data={data}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (

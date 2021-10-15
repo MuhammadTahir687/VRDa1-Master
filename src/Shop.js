@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-  View,
-  Text,
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  ScrollView,
+    View,
+    Text,
+    FlatList,
+    SafeAreaView,
+    StyleSheet,
+    TouchableOpacity,
+    TextInput,
+    ScrollView,
     Dimensions,
-  Button, Alert, Image, KeyboardAvoidingView,
+    Button, Alert, Image, KeyboardAvoidingView, ActivityIndicator,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styles from "./StyleSheet/Style";
@@ -48,6 +48,7 @@ export default function Shop() {
   const [modalmsg,setModalmsg]=useState('')
   const [detailvalidation,setDetailvalidation]=useState('');
   const [uploadfilevalidation,setUploadfilevalidation]=useState('');
+  const [isloading,setLoading]=useState(true);
 
   const Button=[{id:1,title:"Package Details"},{id:2,title:"Proceed Order"}]
 
@@ -56,15 +57,19 @@ export default function Shop() {
   const packages = async () => {
     try {
       const response = await GETAPI("/api/buy-a-package");
+      setLoading(false)
       setData(response.data);
     } catch (e) {console.log(e)}
   };
   const paymentform = async ({itemValue}) => {
+      setLoading(true)
     const data = { package_id: getdata.id, value: itemValue };
     const response = await POSTAPI("/api/get-payment-form", data);
-    if(itemValue=='bank') {setPaymentformdata(response.data.data.bank_form);}
-    else if(itemValue=='usdt'){setPaymentformdata(response.data.data.usdt_form)}
-    else if(itemValue=='wallet'){setPaymentformdata(response.data.data.wallet_form)}
+    if(itemValue=='bank') {await setPaymentformdata(response.data.data.bank_form);}
+    else if(itemValue=='usdt'){await setPaymentformdata(response.data.data.usdt_form)}
+    else if(itemValue=='wallet'){await setPaymentformdata(response.data.data.wallet_form)}
+    else if(itemValue=='vreit'){await setPaymentformdata(response.data.data.vreit)}
+    setLoading(false)
   };
 
   const submit = async () => {
@@ -96,7 +101,8 @@ export default function Shop() {
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList data={data}
+        <ActivityIndicator animating={isloading} size="large" color="black" style={styles.activityind} />
+        <FlatList data={data}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (
@@ -131,7 +137,7 @@ export default function Shop() {
         <View style={{ flex: 0.25 }}>
           <View style={styles.sheetitemcontainer}>
             <Text style={styles.sheetitemtitle}>{getdata.title}</Text>
-            <TouchableOpacity onPress={() => {refRBSheet.current.close()}} style={{ marginTop: 8 }}>
+            <TouchableOpacity onPress={() => {refRBSheet.current.close(),setSelectedValue('')}} style={{ marginTop: 8 }}>
               <Ionicons name="close-circle" color="grey" size={28} />
             </TouchableOpacity>
           </View>
@@ -225,7 +231,7 @@ export default function Shop() {
               </ScrollView>
               : selectedValue=="vreit"?
               <View style={{flex:1}}>
-                <Text style={styles.rbwalletmsg}>VREIT</Text>
+                <Text style={styles.rbwalletmsg}>{paymentformdata.message}</Text>
               </View>
               : selectedValue=="wallet"?
               <View style={{flex:1}}>

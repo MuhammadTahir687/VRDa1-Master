@@ -1,55 +1,78 @@
-import React from "react";
-import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, TextInput,Dimensions} from 'react-native';
+import React, {useState} from "react";
+import {View, Text, SafeAreaView, TouchableOpacity, ScrollView, TextInput, Dimensions} from 'react-native';
 import styles from "../StyleSheet/Style";
 import Textarea from 'react-native-textarea';
 import {backgroundColor} from "react-native-calendars/src/style";
+import SH from '../Components/ScreenHeading'
+import VL from "../Components/VreitListing";
 
-export default  VreitWithdrawl=()=>{
+export default VreitWithdrawl = () => {
+ const [amount,setAmount]=useState('');
+ const [notes,setNotes]=useState('');
+ const[amountvalidation,setAmountvalidation]=useState('');
+ const[notesvalidation,setNotesvalidation]=useState('');
 
-    const Devicewidth=Dimensions.get('window').width;
-    return(
-        <SafeAreaView style={{flex:1}}>
-            <ScrollView  contentContainerStyle={{flexGrow:1}}>
-        <View style={{flex:1,alignItems:"center",marginVertical:10}}>
-            <Text style={{fontWeight:"bold",fontSize:18,textDecorationLine:"underline"}}>VREIT Points Withdrawal</Text>
-        </View>
-            <View style={{flex:1,flexDirection:"row",justifyContent:"center",backgroundColor:"white",marginHorizontal:10,borderRadius:10,marginTop:10,paddingVertical:10,elevation:10,borderWidth:4}}>
-                <Text style={{alignSelf:"center", color:"black",fontWeight:"bold",marginHorizontal:10}}>Total Vreit Amount: </Text>
-                <Text style={{paddingHorizontal:10,paddingVertical:5,alignSelf:"center",backgroundColor:"black",color:"white",borderRadius:5}}> $64.87000 </Text>
-            </View>
-            <View style={{flex:1,flexDirection:"row",justifyContent:"center",backgroundColor:"white",marginHorizontal:10,borderRadius:10,marginTop:10,paddingVertical:10,elevation:10,borderWidth:4}}>
-                <Text style={{alignSelf:"center", color:"black",fontWeight:"bold",marginHorizontal:10}}>Total Vreit Points: </Text>
-                <Text style={{paddingHorizontal:10,paddingVertical:5,alignSelf:"center",backgroundColor:"black",color:"white",borderRadius:5}}> $219.74932 </Text>
-            </View>
-            <View style={{flex:1,marginHorizontal:10,backgroundColor:"#d4d0d0",marginVertical:10}}>
-                <Text style={{backgroundColor:"black",color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderTopLeftRadius:5,borderTopRightRadius:5}}>Swap into Fieat Currency</Text>
+ const amountvaidator = () => {
+     if(amount==''){setAmountvalidation("Enter the amount")}
+     else{setAmountvalidation('')}
+ }
+ const notevaidator = () => {
+     if(notes==''){setNotesvalidation("Enter the notes")}
+     else{setNotesvalidation('')}
+ }
 
-            <View style={{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10}}>
-                  <Text style={{flex:1,backgroundColor:"#828080",color:"white",paddingLeft:10,fontWeight:"bold",paddingVertical:5}}>Holder Name</Text>
-                  <Text style={{flex:1,backgroundColor:"transparent",color:"black",paddingLeft:10,fontWeight:"bold",paddingVertical:5}}>VRDa1</Text>
-            </View>
+    const Submit = () => {
+        if(amount==''){setAmountvalidation("Enter the amount")}
+        else if(notes==''){setNotesvalidation("Enter the notes")}
+        else{
+            alert("Hello")
+        }
 
-                <View style={{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10}}>
-                    <TextInput
-                        style={{backgroundColor:"white",marginTop:10,marginHorizontal:10,borderRadius:5}}
-                        placeholder="Enter Ammount for Transfer"
+    }
 
-                    />
-                    <TextInput
-                        style={{backgroundColor:"white",marginTop:10,marginHorizontal:10,borderRadius:5,textAlignVertical: 'top'}}
-                        placeholder="Notes"
-                        multiline = {true}
-                        numberOfLines = {10}
+    return (
+        <SafeAreaView style={{flex: 1}}>
+            <ScrollView contentContainerStyle={{flexGrow: 1}}>
+                <SH text={"VREIT Points Withdrawal"}/>
+                <VL text1={"Total Vreit Amount:"} text2={"$64.87000"}/>
+                <VL text1={"Total Vreit Points:"} text2={"$219.74932"}/>
 
-                    />
-                    <Text style={{backgroundColor:"#828080",marginTop:10,marginHorizontal:10,color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderRadius:5}}>2% swap charges will be applicable.</Text>
-                    <TouchableOpacity  style={{ flex:1,justifyContent:"center",alignItems:"center",backgroundColor:"black",marginVertical:10,marginHorizontal:10,borderRadius:5}}>
-                        <Text style={{color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold"}}>Transfer To Web Wallet</Text>
-                    </TouchableOpacity>
+                <View style={styles.vwindowcontainer}>
+                    <Text style={styles.vheading}>Swap into Fieat Currency</Text>
 
+                    <View style={styles.v2container}>
+                        <Text style={styles.v2containertext1}>Holder Name</Text>
+                        <Text style={styles.v2continertext2}>VRDa1</Text>
+                    </View>
+
+                    <View style={styles.v3container}>
+                        <TextInput
+                            style={styles.v3input1}
+                            placeholder="Enter Ammount for Transfer"
+                            keyboardType={"numeric"}
+                            onChangeText={(text)=>{setAmount(text),setAmountvalidation('')}}
+                            onBlur={amountvaidator}
+                        />
+                        {amountvalidation!=''&&<Text style={styles.vreiterror}>{amountvalidation}</Text>}
+
+                        <TextInput
+                            style={styles.v3input2}
+                            placeholder="Notes"
+                            multiline={true}
+                            numberOfLines={10}
+                            onChangeText={(text)=>{setNotes(text),setNotesvalidation('')}}
+                            onBlur={notevaidator}
+                        />
+                        {notesvalidation!=''&& <Text style={styles.vreiterror}>{notesvalidation}</Text>}
+
+                        <Text style={styles.v3h}>2% swap charges will be applicable.</Text>
+
+                        <TouchableOpacity style={styles.v3btn} onPress={()=>Submit()}>
+                            <Text style={styles.v3btntext}>Transfer To Web Wallet</Text>
+                        </TouchableOpacity>
+
+                    </View>
                 </View>
-
-            </View>
             </ScrollView>
         </SafeAreaView>
 

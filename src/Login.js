@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import {
-  View,
-  Text,
-  SafeAreaView,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  ToastAndroid,
-  Alert,
+    View,
+    Text,
+    SafeAreaView,
+    TextInput,
+    TouchableOpacity,
+    Image,
+    ScrollView,
+    ToastAndroid,
+    Alert, ActivityIndicator,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import styles from "./StyleSheet/Style";
@@ -27,8 +27,10 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState("Vr6@1Vr6@1");
   const [emailvalidation, setEmailvalidation] = useState('');
   const [passwordvalidation, setPasswordvalidation] = useState('');
-  
+  const [loading, setLoading] = useState(false);
+
   const submit=async()=> {
+      setLoading(true)
     let regex = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
     if (email == '') {
       setEmailvalidation("Enter the Email")
@@ -43,13 +45,7 @@ export default function Login({ navigation }) {
             if(response.data.status==true){
              await SAVEDATA("user",response.data)
               await SAVEDATA("token",response.data.access_token)
-              const tokendata=await GETDATA('token')
-              Alert.alert(
-                "Success",
-                "Your profile updated successfully",
-                [{ text: "Ok", onPress: () => navigation.reset({ index: 0, routes: [{ name: "Drawer" }]}) },],
-                { cancelable: false },
-              )
+                navigation.reset({ index: 0, routes: [{ name: "Drawer" }]})
             }else{
               Toast.show(response.data.message);
             }
@@ -147,6 +143,7 @@ export default function Login({ navigation }) {
         </View>
       </LinearGradient>
       </ScrollView>
+        <ActivityIndicator animating={loading} size="large" color="white" style={styles.activityind} />
     </SafeAreaView>
   );
 }
