@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     Button,
     Dimensions,
+    ScrollView,
     ActivityIndicator
 } from "react-native";
 import styles from "../StyleSheet/Style";
@@ -51,7 +52,8 @@ export default function PurchaseRequest() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ flex: 0.58, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+          <View style={{ height:310, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+              <ScrollView style={{marginBottom:20}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
                 <Ionicons name="person" size={15} color="white" />
@@ -68,6 +70,7 @@ export default function PurchaseRequest() {
             <MText text1={"Status"} text2={item.status} backgroundColor={"#bfbfbf"}/>
             <MText text1={"Create Date"} text2={item.created_at} backgroundColor={"transparent"}/>
             <MText text1={"Action Date"} text2={item.updated_at} backgroundColor={"#bfbfbf"}/>
+              </ScrollView>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>

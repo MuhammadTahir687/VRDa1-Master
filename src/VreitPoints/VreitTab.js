@@ -6,6 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import VreitWithdrawl from "./VreitWithdrawl";
 import VreitLogs from "./VreitLogs";
 import VreitTransferC2C from "./VreitTransferC2C";
+import QuaterlyVreit from "./QuaterlyVreit";
 
 const Tab = createBottomTabNavigator();
 export default function VreitAppTab() {
@@ -32,6 +33,7 @@ export default function VreitAppTab() {
                 tabBarInactiveTintColor: '#797777',
                 tabBarStyle:{paddingBottom:5}
             })}>
+            <Tab.Screen name="Quaterly VREIT"  component={QuaterlyVreit}  />
             <Tab.Screen name="Vreit Withdrwal"  component={VreitWithdrawl}  />
             <Tab.Screen name="Vreit Logs"  component={VreitLogs}  />
             <Tab.Screen name="Vreit Transfer C2C"  component={VreitTransferC2C}  />

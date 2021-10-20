@@ -56,7 +56,7 @@ export default function BinaryCommission() {
                 )}
       />
         <Modal isVisible={isModalVisible}>
-        <View style={{ flex: 0.58, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+        <View style={{ height:340, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
           <View style={styles.modaluser}>
             <View style={styles.modalh}>
               <Ionicons name="person" size={15} color="white" />

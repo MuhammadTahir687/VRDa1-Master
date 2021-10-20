@@ -6,6 +6,7 @@ import {
     FlatList,
     TouchableOpacity,
     Button,
+    ScrollView,
     Dimensions,
     ActivityIndicator
 } from "react-native";
@@ -55,7 +56,8 @@ export default function WithdrawlHistory() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ flex: 0.45, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+          <View style={{ height:270, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+              <ScrollView style={{marginVertical:20}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
                 <Ionicons name="person" size={15} color="white" />
@@ -70,6 +72,7 @@ export default function WithdrawlHistory() {
             <MText text1={"Status"} text2={item.status} backgroundColor={"#bfbfbf"}/>
             <MText text1={"Notes For Admin"} text2={item.adminNotes} backgroundColor={"transparent"} paddingRight={"1%"}/>
             <MText text1={"Date"} text2={item.created_at} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>
+              </ScrollView>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>

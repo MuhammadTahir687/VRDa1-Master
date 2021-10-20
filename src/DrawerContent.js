@@ -10,11 +10,13 @@ import { GETDATA } from "./AsyncStorage/AsyncStorage";
 
 export default DrawerContent = () => {
   const navigation=useNavigation();
-  const [user,setUser]=useState([])
+  const [email,setEmail]=useState('')
+  const [name,setName]=useState('')
 
   useEffect(async()=>{
     const userdata= await GETDATA('user')
-      setUser(userdata)
+      setEmail(userdata.user.email)
+      setName(userdata.user.name)
       console.log("user========",userdata.user.email)
   ;},[])
 
@@ -34,8 +36,8 @@ export default DrawerContent = () => {
         />
       </View>
       <View style={{ marginHorizontal: 10, justifyContent: "center", marginBottom: 10 }}>
-        {/*<Text style={{ color: "white", fontSize: 16,alignItems:"center",textAlign:"center" }}>{user.user.name}</Text>*/}
-        {/*<Text style={{ color: "white",textAlign:"center" }}>{user.user.email}</Text>*/}
+        <Text style={{ color: "white", fontSize: 16,alignItems:"center",textAlign:"center" }}>{name}</Text>
+        <Text style={{ color: "white",textAlign:"center" }}>{email}</Text>
       </View>
       </View>
 

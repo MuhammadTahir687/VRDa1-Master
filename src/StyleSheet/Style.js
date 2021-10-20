@@ -12,9 +12,9 @@ export default StyleSheet.create({
   subscriptiontext:{color:"white"},
   subscriptionprice:{margin:10,fontWeight:"bold",color:"white"},
 
-  itemfootercontainer:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10,alignItems:"center"},
+  itemfootercontainer:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10,alignItems:"center",justifyContent:"center"},
   itempoints:{backgroundColor:"black",color:"#A4A4A4",paddingLeft:5,paddingRight:2,borderRadius:5},
-  itempointtext:{marginHorizontal:15,color:"white",marginVertical:10},
+  itempointtext:{color:"white",paddingHorizontal:10,},
 
   loginh:{fontWeight:"bold",color:"white",fontSize:30,marginLeft:10},
   input:{color:"white",marginHorizontal:30,marginVertical:0,borderBottomWidth:3,borderBottomColor:"white",flexDirection:"row",alignItems:"center"},
@@ -218,6 +218,23 @@ export default StyleSheet.create({
     v3h:{backgroundColor:"#828080",marginTop:10,marginHorizontal:10,color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderRadius:5},
     v3btn:{flex:1,justifyContent:"center",alignItems:"center",backgroundColor:"black",marginVertical:10,marginHorizontal:10,borderRadius:5},
     v3btntext:{color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold"},
+    vreiterror:{color:"red",marginLeft:10},
 
-    vreiterror:{color:"red",marginLeft:10}
+    vcardcontainer:{elevation:8,paddingVertical:10,paddingHorizontal:10,flex: 1,justifyContent:"center",backgroundColor: 'black',borderRadius:10,marginHorizontal:5,marginVertical:10,width:200,height:100},
+    vcardtext:{color:"white",fontSize:17},
+    vcardvalue:{color:"white",fontSize:17,fontWeight:"bold"},
+    vcardvalues:{backgroundColor:"white",color:"black",paddingVertical:5,paddingHorizontal:10,borderRadius:5},
+    vcardvaluecontainer:{flexDirection:"row",alignItems:"center"},
+    vcardformula:{color:"white"},
+
+    invoicecontainer:{borderWidth:1,borderColor:"black",marginHorizontal:10,marginTop:5,borderRadius:5,paddingHorizontal:10},
+    invoiceheader:{flexDirection:"row"},
+    invoiceheadervalue:{color:"#7f7878"},
+    invoicebtncontainer:{flex:1, flexDirection:"row",marginHorizontal:10,marginVertical:5},
+    invoicebtnicon:{backgroundColor:"black",borderTopLeftRadius:50,borderBottomLeftRadius:50,borderWidth:0,borderColor:"black",paddingVertical:10,paddingLeft:10,paddingRight:5,alignItems:'center'},
+    invoicebtntext:{flex:1,backgroundColor:"#454343",borderTopRightRadius:50,borderBottomRightRadius:50,borderWidth:0,borderColor:"white",paddingHorizontal:5,paddingVertical:10,textAlign:"center",color:"white"},
+
+    invoicemodalheader:{flexDirection:"row",marginHorizontal:10},
+    invoicefooter:{flexDirection:"row",alignItems:"center",justifyContent:'space-between',marginBottom:10},
+    invoicefootertext:{fontWeight:"bold"}
 })

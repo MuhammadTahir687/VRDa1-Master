@@ -11,8 +11,8 @@ const Splash = ({ navigation }) => {
       } else {
         navigation.replace("Drawer")
       }
-    }, 1000);
-    
+    }, 3000);
+
   }, []);
 
   return (

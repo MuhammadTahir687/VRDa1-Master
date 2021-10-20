@@ -123,7 +123,7 @@ export default function Wallet() {
               style={{ height: 50, width: "100%" }}
               onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue),setSelectedValuevalidation('')}}>
               <Picker.Item label="Choose One" value="" />
-              {users.map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
+              {users.sort((a, b) => a.name.localeCompare(b.name)).map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
             </Picker>
           </View>
           <Text style={styles.walleterror}>{selectedValuevalidation}</Text>

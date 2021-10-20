@@ -6,6 +6,7 @@ import {
     FlatList,
     TouchableOpacity,
     Button,
+    ScrollView,
     Dimensions,
     ActivityIndicator
 } from "react-native";
@@ -52,7 +53,8 @@ export default function RecieveHistory() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ flex: 0.58, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+          <View style={{ height:300, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+              <ScrollView style={{marginBottom:20,}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
                 <Ionicons name="person" size={15} color="white" />
@@ -68,6 +70,7 @@ export default function RecieveHistory() {
             <MText text1={"Date"} text2={item.created_at} backgroundColor={"#bfbfbf"}/>
             <MText text1={"Status"} text2={item.status} backgroundColor={"transparent"}/>
             <MText text1={"Sender Message"} text2={item.admin_feedback} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>
+              </ScrollView>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>
