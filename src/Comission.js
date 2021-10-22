@@ -21,7 +21,8 @@ export default function Comission() {
   const [item,setItem]=useState('');
   const [show,setShow]=useState(false);
   const [time,setTime]=useState(0);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [showclock,setShowclock]=useState(false);
 
     useEffect(async () => {await response();}, []);
 
@@ -29,7 +30,11 @@ export default function Comission() {
     try {
       const response= await GETAPI("api/closing-commissions-logs")
       setLoading(false)
-      setTime(response.data.next_closing_date)
+        var a=response.data.next_second;
+        var b=18000;
+       setTime(a-b);
+       setShowclock(true)
+       console.log('jhbh')
       const res = response.data;
       const array=Object.values(res.logs)
       setGetdata(array)
@@ -42,7 +47,21 @@ export default function Comission() {
       <View style={styles.timerhcontainer}>
         <Text style={styles.timerh}>Next Commissions</Text>
       </View>
-      <Clock />
+        {showclock &&
+        <CountDown
+            size={30}
+            until={time}
+            onFinish={() => alert('Finished')}
+            digitStyle={{backgroundColor: '#FFF', borderWidth: 2, borderColor: '#000'}}
+            digitTxtStyle={{color: '#000'}}
+            timeLabelStyle={{color: 'black', fontWeight: 'bold'}}
+            separatorStyle={{color: '#000'}}
+            timeToShow={['D','H', 'M', 'S']}
+            timeLabels={{m: "Min", s: "Sec",h:"Hours",d:"Days"}}
+            showSeparator
+        />
+        }
+
       <View style={{ marginVertical: 10 }}>
         <FlatList data={getdata}
                   renderItem={({ item }) => (

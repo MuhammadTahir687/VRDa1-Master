@@ -22,6 +22,7 @@ import Card from "../Components/Card";
 import Toast from "react-native-simple-toast";
 import MText from "../Components/ModalText";
 import {ExpandableListView} from 'react-native-expandable-listview';
+import { List } from 'react-native-paper';
 
 export default function QuaterlyVreit() {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -83,31 +84,53 @@ export default function QuaterlyVreit() {
                 <Text>{index+1} : {item.title} : </Text>
                     <Text style={styles.invoiceheadervalue}>( ${item.value} )</Text>
                 </View>
+
                 <TouchableOpacity style={styles.invoicebtncontainer} onPress={()=>{setModalVisible(true),setItem(item),setIndex(index)}}>
                     <Ionicons name="newspaper-outline" color="white" size={18} style={styles.invoicebtnicon}/>
                     <Text style={styles.invoicebtntext}>Invoice</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.invoicefooter}  onPress={()=>{setOpacity(item.id);changeLayout({item});}}>
-                    <Text style={styles.invoicefootertext}>Quaterly Bonus VREITS</Text>
-                    <Ionicons name="chevron-down-circle-sharp" size={20}/>
-                </TouchableOpacity>
-                <View style={{height:item.id===opacity && expanded ? null : 0, overflow: 'hidden'}}>
-                    <FlatList data={quater} renderItem={({ item, index }) => (
-                        <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5}}>
-                            <View style={{flex:1,marginVertical:10}}>
-                                <Image source={require('../Assets/Logo.png')} style={{width:50,height:50,resizeMode:'contain'}}/>
-                            </View>
-                            <View style={{flex:2}}>
-                                <Text style={{fontWeight:'bold'}}>Quater Date:</Text>
-                                <Text style={{color:"#666262"}}>{item.date}</Text>
-                            </View>
-                            <View style={{flex:2}}>
-                                <Text style={{fontWeight:'normal'}}>VREIT: {item.Vreit}</Text>
-                                <Text style={{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>
-                            </View>
-                        </View>
-                    )}/>
-                </View>
+
+                <List.Section style={styles.listcontainer}>
+                    <List.Accordion title="Quaterly Bonus VREITS" titleStyle={styles.listtitlestyle}>
+                        <FlatList data={quater} renderItem={({ item, index }) => (
+                                <View style={styles.listviewcontainer}>
+                                    <View style={styles.listimageconstainer}>
+                                        <Image source={require('../Assets/Logo.png')} style={styles.listimage}/>
+                                    </View>
+                                    <View style={styles.listquaterconatiner}>
+                                        <Text style={styles.quaterdate}>Quater Date:</Text>
+                                        <Text style={styles. quaterdatevalue}>{item.date}</Text>
+                                    </View>
+                                    <View style={styles.listquaterconatiner}>
+                                        <Text style={styles.listvreit}>VREIT: {item.Vreit}</Text>
+                                        <Text style={styles.listvreitshifted}>Vreit Shifted</Text>
+                                    </View>
+                                </View>
+                            )}/>
+                    </List.Accordion>
+                </List.Section>
+
+                {/*<TouchableOpacity style={styles.invoicefooter}  onPress={()=>{setOpacity(item.id);changeLayout({item});}}>*/}
+                {/*    <Text style={styles.invoicefootertext}>Quaterly Bonus VREITS</Text>*/}
+                {/*    <Ionicons name="chevron-down-circle-sharp" size={20}/>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<View style={{height:item.id===opacity && expanded ? null : 0, overflow:"hidden"}}>*/}
+                {/*    <FlatList data={quater} renderItem={({ item, index }) => (*/}
+                {/*        <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5}}>*/}
+                {/*            <View style={{flex:1,marginVertical:10}}>*/}
+                {/*                <Image source={require('../Assets/Logo.png')} style={{width:50,height:50,resizeMode:'contain'}}/>*/}
+                {/*            </View>*/}
+                {/*            <View style={{flex:2}}>*/}
+                {/*                <Text style={{fontWeight:'bold'}}>Quater Date:</Text>*/}
+                {/*                <Text style={{color:"#666262"}}>{item.date}</Text>*/}
+                {/*            </View>*/}
+                {/*            <View style={{flex:2}}>*/}
+                {/*                <Text style={{fontWeight:'normal'}}>VREIT: {item.Vreit}</Text>*/}
+                {/*                <Text style={{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>*/}
+                {/*            </View>*/}
+                {/*        </View>*/}
+                {/*    )}/>*/}
+                {/*</View>*/}
             </View>
                 )}/>
            </View>

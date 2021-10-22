@@ -30,6 +30,8 @@ export default function UpdateBTC({ navigation }) {
   const [lastname, setLastname] = useState();
   const [role, setrole] = useState();
   const [title, setTitle] = useState();
+    const [usdtaddressvalidation,setUsdtaddressvalidation]=useState('');
+    const [usdtimagevalidation,setUsdtimageValidation]=useState('');
 
   useEffect(async () => {await response()}, []);
   const response = async () => {
@@ -51,18 +53,16 @@ export default function UpdateBTC({ navigation }) {
     })
       .then(image => {
         setFilePath(image.path);
+        setUsdtimageValidation('')
         setImageloading(false)
       console.log("error");
     });
   };
   const update=async ()=> {
-    if (usdtaddress== '') {
-      ToastAndroid.showWithGravity("Enter the USDT Address", ToastAndroid.SHORT, ToastAndroid.CENTER);
-    } else if (usdtaddress.length < 16) {
-      ToastAndroid.showWithGravity("USDT must be atleast 16 characters", ToastAndroid.SHORT, ToastAndroid.CENTER);
-    }else if (filePath == '') {
-      ToastAndroid.showWithGravity("Select the QR Code Image", ToastAndroid.SHORT, ToastAndroid.CENTER);
-    }  else {
+    if (usdtaddress== '') {setUsdtaddressvalidation("Enter the USDT Address")}
+    else if (usdtaddress.length < 16) {setUsdtaddressvalidation("USDT must be atleast 16 characters")}
+    else if (filePath == '') {setUsdtimageValidation("Select the QR Code Image")}
+    else {
       const data = new FormData();
       data.append('usdt', usdtaddress);
       data.append("usdt_qr_code", { uri: filePath, name: "photo.jpg", type: `image/jpg`, });
@@ -71,7 +71,7 @@ export default function UpdateBTC({ navigation }) {
           if (response.data.status == true) {
             Alert.alert(
               "Success",
-              "Your profile updated successfully",
+              "Your USDT profile updated successfully",
               [{ text: "Ok", onPress: () => navigation.navigate('PMain'), },],
               { cancelable: false },
             );
@@ -112,9 +112,10 @@ export default function UpdateBTC({ navigation }) {
                   style={styles.pinput}
                   placeholder="USDT Address"
                   value={usdtaddress}
-                  onChangeText={(text)=>{setUsdtaddress(text)}}
+                  onChangeText={(text)=>{setUsdtaddress(text),setUsdtaddressvalidation('')}}
                 />
               </View>
+                {usdtaddressvalidation !='' && <Text style={styles.btcerror}>{usdtaddressvalidation}</Text>}
               <View style={{ marginVertical: 10, alignSelf: "center" }}>
                 {imageloading? <Avatar
                   size="xlarge"
@@ -129,6 +130,7 @@ export default function UpdateBTC({ navigation }) {
                   containerStyle={{ backgroundColor: "white", borderRadius: 10, borderWidth: 5, borderColor: "black" }}
                 />}
               </View>
+                {usdtimagevalidation !='' && <Text style={styles.btcerror}>{usdtimagevalidation}</Text>}
               <TouchableOpacity onPress={()=>{takephotofromgallery()}}>
                 <LinearGradient colors={["#0c0808", "#6c6868"]} style={styles.cpbutton}>
                   <Text style={{ padding: 5, color: "white" }}>Upload QR Code Image</Text>

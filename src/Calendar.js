@@ -6,7 +6,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 export default function Cal() {
   return (
     <View>
-        <CalendarProvider date={Date()}
+        <CalendarProvider date={Date.now()}
         style={{backgroundColor:"#000",marginVertical:10,marginHorizontal:10}}
         >
           <ExpandableCalendar

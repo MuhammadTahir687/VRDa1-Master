@@ -42,11 +42,11 @@ export default function UpdateProfileInfo({ navigation }) {
     const [kinrelation,setKinrelation]=useState('');
     const [password, setPassword] = useState("");
     const [errormsg, setErrormsg] = useState("");
-    const [filePath, setFilePath] = useState([]);
-    const [identitypic, setIdentitypic] = useState([]);
-    const [passportpic, setPassportpic] = useState([]);
-    const [signaturepic, setSignaturepic] = useState([]);
-    const [kinpic, setKinpic] = useState([]);
+    const [filePath, setFilePath] = useState(null);
+    const [identitypic, setIdentitypic] = useState(null);
+    const [passportpic, setPassportpic] = useState(null);
+    const [signaturepic, setSignaturepic] = useState(null);
+    const [kinpic, setKinpic] = useState(null);
     const [image, setImage] = useState();
     const [firstname, setFirstname] = useState();
     const [lastname, setLastname] = useState();
@@ -95,11 +95,11 @@ export default function UpdateProfileInfo({ navigation }) {
             data.append("passport", passport);
             data.append("kin_name", kinname);
             data.append("kin_relation", kinrelation);
-            data.append("picture", { uri: filePath, name: "photo.jpg", type: `image/jpg`, });
-            data.append("identity_pic", { uri: identitypic, name: "photo.jpg", type: `image/jpg`, });
-            data.append("passport_pic", { uri: passportpic, name: "photo.jpg", type: `image/jpg`, });
-            data.append("signature_pic", { uri: signaturepic, name: "photo.jpg", type: `image/jpg`, });
-            data.append("kin_identity_pic", { uri: kinpic, name: "photo.jpg", type: `image/jpg`, });
+            {filePath && data.append("picture", { uri: filePath, name: "photo.jpg", type: `image/jpg` })}
+            {identitypic && data.append("identity_pic", { uri: identitypic, name: "photo.jpg", type: `image/jpg` })}
+            {passportpic && data.append("passport_pic", { uri: passportpic, name: "photo.jpg", type: `image/jpg` })}
+            {signaturepic && data.append("signature_pic", { uri: signaturepic, name: "photo.jpg", type: `image/jpg` })}
+            {kinpic && data.append("kin_identity_pic", { uri: kinpic, name: "photo.jpg", type: `image/jpg` })}
 
             var response=await POSTAPI("/api/update-info", data)
                 .then(function (response) {

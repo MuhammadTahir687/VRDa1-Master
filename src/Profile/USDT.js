@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import { GETAPI } from "../API/APIResponse";
+import Clipboard from "@react-native-community/clipboard";
 
 export default function USDT({ navigation }) {
   const [usdtcaddress, setusdtcaddress] = useState();
@@ -16,6 +17,7 @@ export default function USDT({ navigation }) {
   const [lastname, setLastname] = useState();
   const [role, setrole] = useState();
   const [title, setTitle] = useState();
+    const [qrimage,setQrimage]=useState()
 
   useEffect(async () => {await response()}, []);
 
@@ -23,6 +25,7 @@ export default function USDT({ navigation }) {
     try {
      const res= await GETAPI("/api/usdt-profile")
       setusdtcaddress(res.data.usdt)
+        setQrimage("https://staging.vrda1.net/"+res.data.usdt_img)
       const response = await GETAPI("/api/profile");
       setFirstname(response.data.user.first_name);
       setLastname(response.data.user.last_name);
@@ -58,22 +61,35 @@ export default function USDT({ navigation }) {
                   </LinearGradient>
                 </TouchableOpacity>
               </View>
-              <View style={styles. pdatacontainer}>
-                <Text style={{fontWeight:"bold",marginLeft:25}}>USDT Detail</Text>
+              <View style={styles. pdatacontainer1}>
+                <Text style={{fontWeight:"bold",marginLeft:25}}>USDT</Text>
+                  <Text style={styles.usdttrc}>TRC20</Text>
               </View>
+                <View style={styles.warningcontainer}>
+                    <Text style={styles.warningheading}>Warning !!!</Text>
+                    <Text style={styles.warningtext}>* Upon transfer request kindly make sure your wallet is secured.</Text>
+                    <Text style={styles.warningtext}>* Any wrong hash address can cause loss of funds.</Text>
+                    <Text style={styles.warningtext}>* Other then TRC20 USDT address may result in loss of your funds.</Text>
+                    <Text style={styles.warningtext}>* Funds will appear after 3rd party or block chain confirmation.</Text>
+                    <Text style={styles.warningtext}>* VRDa1 is not responsible for any delay related to block chain confirmation time.</Text>
+                </View>
               <View style={styles. pdatacontainer}>
                 <Text style={styles.pddatatext}>QR Code</Text>
-                <Image style={{width:115,height:111,marginHorizontal:10,marginVertical:10}} source={require('../Assets/qrcode.jpg')}/>
+                  <Image style={styles.btcqrcodeimage} source={{uri:qrimage}}/>
               </View>
               <View style={styles. pdatacontainers}>
                 <Text style={styles.pddatatexts}>USDT Address</Text>
                 <Text style={styles.pddatavaluess}>{usdtcaddress}</Text>
               </View>
+                <TouchableOpacity onPress={()=>{Clipboard.setString(usdtcaddress)}}>
+                    <LinearGradient colors={["#0c0808", "#6c6868"]} style={styles.cpbutton}>
+                        <Text style={{ padding: 5, color: "white" }}>Copy Address</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
             </View>
           </ImageBackground>
         </LinearGradient>
       </ScrollView>
     </SafeAreaView>
-
   );
 }

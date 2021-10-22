@@ -30,6 +30,8 @@ export default function UpdateBTC({ navigation }) {
   const [lastname, setLastname] = useState();
   const [role, setrole] = useState();
   const [title, setTitle] = useState();
+  const [btcaddressvalidation,setBtcaddressvalidation]=useState('');
+  const [btcimagevalidation,setBtcimageValidation]=useState('');
 
   useEffect(async () => {await response()}, []);
   const response = async () => {
@@ -51,26 +53,27 @@ export default function UpdateBTC({ navigation }) {
     })
       .then(image => {
         setFilePath(image.path);
+        setBtcimageValidation('');
         setImageloading(false)
       }).catch((error) => {
       console.log("error");
     });
   };
   const update=async ()=> {
-    if (btcaddress== '') {
-      ToastAndroid.showWithGravity("Enter the BTC Address", ToastAndroid.SHORT, ToastAndroid.CENTER);
-    } else if (filePath == '') {
-      ToastAndroid.showWithGravity("Select the QR Code Image", ToastAndroid.SHORT, ToastAndroid.CENTER);
-    }  else {
+    if (btcaddress== '') {setBtcaddressvalidation('Enter the BTC Address')}
+    else if(btcaddress.length<16){setBtcaddressvalidation('The btc must be at least 16 characters')}
+    else if (filePath == '') {setBtcimageValidation('Select the QR Code Image')}
+    else {
       const data = new FormData();
       data.append('btc', btcaddress);
       data.append("btc_qr_code", { uri: filePath, name: "photo.jpg", type: `image/jpg`, });
       const response = await POSTAPI("/api/btc-profile-update", data)
         .then(function(response) {
+            console.log("response=========",response.data)
           if (response.data.status == true) {
             Alert.alert(
               "Success",
-              "Your profile updated successfully",
+              "Your BTC profile updated successfully",
               [{ text: "Ok", onPress: () => navigation.navigate('PMain'), },],
               { cancelable: false },
             );
@@ -109,9 +112,10 @@ export default function UpdateBTC({ navigation }) {
                   style={styles.pinput}
                   placeholder="BTC Address"
                   value={btcaddress}
-                  onChangeText={(text)=>{setBtcaddress(text)}}
+                  onChangeText={(text)=>{setBtcaddress(text),setBtcaddressvalidation('')}}
                 />
               </View>
+                {btcaddressvalidation !='' && <Text style={styles.btcerror}>{btcaddressvalidation}</Text>}
               <View style={{ marginVertical: 10, alignSelf: "center" }}>
                 {imageloading? <Avatar
                   size="xlarge"
@@ -126,6 +130,7 @@ export default function UpdateBTC({ navigation }) {
                   containerStyle={{ backgroundColor: "white", borderRadius: 10, borderWidth: 5, borderColor: "black" }}
                 />}
               </View>
+                {btcimagevalidation !='' && <Text style={styles.btcerror}>{btcimagevalidation}</Text>}
               <TouchableOpacity onPress={()=>{takephotofromgallery()}}>
                 <LinearGradient colors={["#0c0808", "#6c6868"]} style={styles.cpbutton}>
                   <Text style={{ padding: 5, color: "white" }}>Upload QR Code Image</Text>

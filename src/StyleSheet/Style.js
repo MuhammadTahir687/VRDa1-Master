@@ -13,7 +13,7 @@ export default StyleSheet.create({
   subscriptionprice:{margin:10,fontWeight:"bold",color:"white"},
 
   itemfootercontainer:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10,alignItems:"center",justifyContent:"center"},
-  itempoints:{backgroundColor:"black",color:"#A4A4A4",paddingLeft:5,paddingRight:2,borderRadius:5},
+  itempoints:{backgroundColor:"black",color:"#A4A4A4",paddingLeft:5,paddingRight:2,borderRadius:5,marginLeft:5},
   itempointtext:{color:"white",paddingHorizontal:10,},
 
   loginh:{fontWeight:"bold",color:"white",fontSize:30,marginLeft:10},
@@ -109,13 +109,14 @@ export default StyleSheet.create({
   pgbarmodal:{backgroundColor: "#d4d0d0", borderColor: "#d4d0d0",marginVertical:10,marginRight:"13%" },
 
   profilebackimg:{flex:1,width:"100%",height:"30%"},
-  profilemaincontainer:{backgroundColor:"white",marginHorizontal:30,borderRadius:15,justifyContent:"center",marginTop:55,paddingBottom:10 },
+  profilemaincontainer:{backgroundColor:"white",marginHorizontal:30,borderRadius:15,justifyContent:"center",marginTop:55,paddingBottom:10,marginBottom:10 },
   profileavatar:{alignSelf:"center",backgroundColor:"red"},
   profilename:{textAlign:"center",fontWeight:"bold",fontSize:18},
   profiledesignation:{textAlign:"center"},
   profilebutton:{marginHorizontal:10,justifyContent:"space-between",flexDirection:"row",marginVertical:5,borderRadius:5,padding:10},
 
   pdatacontainer:{flexDirection:"row",marginHorizontal:0,justifyContent:"space-between",alignItems:"center"},
+  pdatacontainer1:{flexDirection:"row",marginHorizontal:0,alignItems:"center"},
   pddatatext:{flex:1,textAlign:"left",marginRight:10,padding:6,color:"#000",marginLeft:20,fontWeight:"bold"},
   pddatavalues:{flex:1,textAlign:"left",paddingLeft:12},
 
@@ -230,11 +231,40 @@ export default StyleSheet.create({
     invoicecontainer:{borderWidth:1,borderColor:"black",marginHorizontal:10,marginTop:5,borderRadius:5,paddingHorizontal:10},
     invoiceheader:{flexDirection:"row"},
     invoiceheadervalue:{color:"#7f7878"},
-    invoicebtncontainer:{flex:1, flexDirection:"row",marginHorizontal:10,marginVertical:5},
+    invoicebtncontainer:{flex:1, flexDirection:"row",marginHorizontal:10,marginTop:20},
     invoicebtnicon:{backgroundColor:"black",borderTopLeftRadius:50,borderBottomLeftRadius:50,borderWidth:0,borderColor:"black",paddingVertical:10,paddingLeft:10,paddingRight:5,alignItems:'center'},
     invoicebtntext:{flex:1,backgroundColor:"#454343",borderTopRightRadius:50,borderBottomRightRadius:50,borderWidth:0,borderColor:"white",paddingHorizontal:5,paddingVertical:10,textAlign:"center",color:"white"},
 
     invoicemodalheader:{flexDirection:"row",marginHorizontal:10},
     invoicefooter:{flexDirection:"row",alignItems:"center",justifyContent:'space-between',marginBottom:10},
-    invoicefootertext:{fontWeight:"bold"}
+    invoicefootertext:{fontWeight:"bold"},
+
+    listcontainer:{marginVertical:0},
+    listtitlestyle:{fontWeight:"bold",color:"black",backgroundColor:"transparent"},
+    listviewcontainer:{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5},
+    listimageconstainer:{flex:1,marginVertical:10},
+    listimage:{width:50,height:50,resizeMode:'contain'},
+    listquaterconatiner:{flex:2},
+    quaterdate:{fontWeight:'bold'},
+    quaterdatevalue:{color:"#666262"},
+    listvreit:{fontWeight:'normal'},
+    listvreitshifted:{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10},
+
+    btcerror:{color:"red",marginLeft:10},
+    warningcontainer:{borderWidth:1,marginHorizontal:10,marginVertical:10,borderRadius:5},
+    warningheading:{color:"red",fontWeight:"bold",fontStyle:"italic",paddingHorizontal:10},
+    warningtext:{paddingHorizontal:10,fontSize:12,textAlign:"justify"},
+
+    btcqrcodeimage:{width:100,height:100,marginHorizontal:10,marginVertical:10,resizeMode:"contain"},
+    usdttrc:{backgroundColor:"black",color:"white",paddingHorizontal:10,borderRadius:5,marginLeft:5}
+
+
+
+
+
+
+
+
+
+
 })

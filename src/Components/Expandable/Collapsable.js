@@ -21,7 +21,7 @@ export default function Application () {
 
    const changeLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setExpanded(!expanded)
+       {opacity==item.id?setExpanded(!expanded):setExpanded(true)}
     }
     const quater=[
         {date:"jsnvajd",Vreit:"nvzjnvzj"},
@@ -33,34 +33,27 @@ export default function Application () {
             <SafeAreaView style={{flex:1}}>
             <View style={styles.container}>
                 <View style={styles.btnTextHolder}>
-                    <TouchableOpacity style={styles.invoicefooter}>
+                    <TouchableOpacity style={styles.invoicefooter}  onPress={()=>{setOpacity(item.id);changeLayout({item});}}>
                         <Text style={styles.invoicefootertext}>Quaterly Bonus VREITS</Text>
                         <Ionicons name="chevron-down-circle-sharp" size={20}/>
                     </TouchableOpacity>
-                <TouchableOpacity
-                    activeOpacity={0.8}
-                    onPress={changeLayout}
-                    style={styles.Btn}>
-                <Text style={styles.btnText}>Expand / Collapse</Text>
-                </TouchableOpacity>
-                <View style={{height: expanded ? null : 0, overflow: 'hidden'}}>
-                    <FlatList data={quater} renderItem={({ item, index }) => (
-                        <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5}}>
-                            <View style={{flex:1,marginVertical:10}}>
-                                <Ionicons name="copy"/>
-                                {/*<Image source={require('')} style={{width:50,height:50,resizeMode:'contain'}}/>*/}
+                    <View style={{height:item.id===opacity && expanded ? null : 0, overflow:"hidden"}}>
+                        <FlatList data={quater} renderItem={({ item, index }) => (
+                            <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5}}>
+                                <View style={{flex:1,marginVertical:10}}>
+                                    <Image source={require('../Assets/Logo.png')} style={{width:50,height:50,resizeMode:'contain'}}/>
+                                </View>
+                                <View style={{flex:2}}>
+                                    <Text style={{fontWeight:'bold'}}>Quater Date:</Text>
+                                    <Text style={{color:"#666262"}}>{item.date}</Text>
+                                </View>
+                                <View style={{flex:2}}>
+                                    <Text style={{fontWeight:'normal'}}>VREIT: {item.Vreit}</Text>
+                                    <Text style={{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>
+                                </View>
                             </View>
-                            <View style={{flex:2}}>
-                                <Text style={{fontWeight:'bold'}}>Quater Date:</Text>
-                                <Text style={{color:"#666262"}}>{item.date}</Text>
-                            </View>
-                            <View style={{flex:2}}>
-                                <Text style={{fontWeight:'normal'}}>VREIT: {item.Vreit}</Text>
-                                <Text style={{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>
-                            </View>
-                        </View>
-                    )}/>
-                </View>
+                        )}/>
+                    </View>
             </View>
             </View>
             </SafeAreaView>

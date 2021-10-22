@@ -137,7 +137,7 @@ export default function Shop() {
         <View style={{ flex: 0.25 }}>
           <View style={styles.sheetitemcontainer}>
             <Text style={styles.sheetitemtitle}>{getdata.title}</Text>
-            <TouchableOpacity onPress={() => {refRBSheet.current.close(),setSelectedValue('')}} style={{ marginTop: 8 }}>
+            <TouchableOpacity onPress={() => {refRBSheet.current.close(),setSelectedValue(''),setPaymentformdata('')}} style={{ marginTop: 8 }}>
               <Ionicons name="close-circle" color="grey" size={28} />
             </TouchableOpacity>
           </View>

@@ -7,6 +7,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import axios from "axios";
 import { GETAPI } from "../API/APIResponse";
+import Clipboard from "@react-native-community/clipboard";
 
 export default function BTC({ navigation }) {
 
@@ -17,6 +18,7 @@ export default function BTC({ navigation }) {
   const [lastname, setLastname] = useState();
   const [role, setrole] = useState();
   const [title, setTitle] = useState();
+  const [qrimage,setQrimage]=useState()
 
   useEffect(async () => {await response()}, []);
 
@@ -25,6 +27,7 @@ export default function BTC({ navigation }) {
       const response = await GETAPI("/api/profile");
       const res =  await GETAPI("/api/btc-profile")
       setBtcaddress(res.data.btc)
+        setQrimage("https://staging.vrda1.net/"+res.data.btc_img)
       setFirstname(response.data.user.first_name);
       setLastname(response.data.user.last_name);
       setTitle(response.data.user.title);
@@ -63,15 +66,29 @@ export default function BTC({ navigation }) {
               <View style={styles. pdatacontainer}>
                 <Text style={{fontWeight:"bold",marginLeft:25}}>BTC Detail</Text>
               </View>
+                <View style={styles.warningcontainer}>
+                    <Text style={styles.warningheading}>Warning !!!</Text>
+                    <Text style={styles.warningtext}>* Upon transfer request kindly make sure your wallet is secured.</Text>
+                    <Text style={styles.warningtext}>* Any wrong hash address can cause loss of funds.</Text>
+                    <Text style={styles.warningtext}>* Other then BTC Hash address may result in loss of your funds.</Text>
+                    <Text style={styles.warningtext}>* Funds will appear after 3rd party or block chain confirmation.</Text>
+                    <Text style={styles.warningtext}>* VRDa1 is not responsible for any delay related to block chain confirmation time.</Text>
+                </View>
               <View style={styles. pdatacontainer}>
                 <Text style={styles.pddatatext}>QR Code</Text>
-                <Image style={{width:115,height:111,marginHorizontal:10,marginVertical:10}} source={require('../Assets/qrcode.jpg')}/>
+                <Image style={styles.btcqrcodeimage} source={{uri:qrimage}}/>
               </View>
               <View style={styles. pdatacontainers}>
                 <Text style={styles.pddatatexts}>BTC Address</Text>
                 <Text style={styles.pddatavaluess}>{btcaddress}</Text>
               </View>
+                <TouchableOpacity onPress={()=>{Clipboard.setString(btcaddress)}}>
+                    <LinearGradient colors={["#0c0808", "#6c6868"]} style={styles.cpbutton}>
+                        <Text style={{ padding: 5, color: "white" }}>Copy Address</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
             </View>
+
           </ImageBackground>
         </LinearGradient>
       </ScrollView>
