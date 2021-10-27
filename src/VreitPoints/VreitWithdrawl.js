@@ -118,8 +118,6 @@ export default VreitWithdrawl = () => {
                         </View>
                     </View>
                 }
-
-
             </ScrollView>
         </SafeAreaView>
 

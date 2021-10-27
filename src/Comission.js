@@ -85,9 +85,9 @@ export default function Comission() {
             </TouchableOpacity>
           </View>
           <MText text1={"Transaction"} text2={item.transactions?item.transactions:""} />
-          <MText text1={"Total (50)"} text2={item.total?item.total:""} backgroundColor={"#bfbfbf"} />
-          <MText text1={"70% (900)"} text2={parseFloat(item.percent_70).toFixed(1)+'%'?item.percent_70:""} />
-          <MText text1={"30% (400)"} text2={parseFloat(item.percent_30).toFixed(1)+'%'?item.percent_30:""} backgroundColor={"#bfbfbf"}  />
+          <MText text1={"Total (50)"} text2={parseFloat(item.total).toFixed(1)?parseFloat(item.total).toFixed(1):""} backgroundColor={"#bfbfbf"} />
+          <MText text1={"70% (900)"} text2={parseFloat(item.percent_70).toFixed(1)+'%'?parseFloat(item.percent_70).toFixed(1):""} />
+          <MText text1={"30% (400)"} text2={parseFloat(item.percent_30).toFixed(1)+'%'?parseFloat(item.percent_30).toFixed(1):""} backgroundColor={"#bfbfbf"}  />
           <View style={styles.  modaldatacontainers}>
             <Text style={styles.modaldatatexts}>Status</Text>
             <Progress.Bar progress={0.8} color="#39f108" style={styles.pgbarmodal} width={100} />

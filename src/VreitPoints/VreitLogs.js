@@ -19,6 +19,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MText from "../Components/ModalText";
 import Modal from "react-native-modal";
 import MD from "../Components/ModalDetails";
+import RH from "../Components/ReportHeading";
 
 export default VreitLogs = () => {
     const [btn, setBtn] = useState(0);
@@ -57,6 +58,7 @@ export default VreitLogs = () => {
     return (
         <SafeAreaView style={{flex:1}} >
             <View>
+                <RH text={"VREIT Logs"}/>
             <ScrollView horizontal={true}>
                 <View style={{flexDirection: "row",marginVertical:10}}>
                     {Button.map((item, index) => (

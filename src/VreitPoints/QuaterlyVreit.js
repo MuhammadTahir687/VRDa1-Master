@@ -41,17 +41,11 @@ export default function QuaterlyVreit({navigation}) {
     const [aspoints,setAspoints]=useState('');
     const [purchases,setPurchases]=useState([]);
     const [quaters,setQuaters]=useState([])
-    const [shifted,setShifted]=useState('')
+    const [shifted,setShifted]=useState('');
+    const [showcard,setShowcard]=useState(false)
+    const [loading, setLoading] = useState(true);
 
 
-    if (Platform.OS === 'android') {
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
-
-    const changeLayout = ({item}) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        {opacity==item.id?setExpanded(!expanded):setExpanded(true)}
-    }
 
     useEffect(async()=>{await response()},[])
     const response=async()=>{
@@ -66,6 +60,8 @@ export default function QuaterlyVreit({navigation}) {
         setAsamount(res.data.total_shifted_vreits.amount.toFixed(5))
         setAspoints(res.data.total_shifted_vreits.points)
         setPurchases(res.data.purchases)
+        setShowcard(true)
+        setLoading(false)
         console.log(res.data.current_vreit_price)
     }
 
@@ -94,7 +90,8 @@ export default function QuaterlyVreit({navigation}) {
 
     return(
        <SafeAreaView style={{flex:1}}>
-           <View>
+           <ActivityIndicator animating={loading} size="large" color="black" style={styles.activityind} />
+           { showcard===true ? <View>
            <FlatList horizontal={true} data={DATA} renderItem={({ item }) => (
                <LinearGradient colors={["#0c0808", "#8d8a8a"]} style={styles.vcardcontainer}>
                    <View style={styles.vcardvaluecontainer}>
@@ -105,7 +102,7 @@ export default function QuaterlyVreit({navigation}) {
                        <Text style={styles.vcardvalue}>{item.value}</Text>
                </LinearGradient>
                )}/>
-           </View>
+           </View>:<View></View>}
            <View style={{flex:1,marginBottom:10}}>
            <FlatList data={purchases} renderItem={({ item, index }) => (
             <View style={styles.invoicecontainer}>
@@ -131,9 +128,9 @@ export default function QuaterlyVreit({navigation}) {
                                     </View>
                                     <View style={styles.listquaterconatiner}>
                                         <Text style={styles.listvreit}>VREIT: {item.quarter_vreits}</Text>
-                                        <TouchableOpacity onPress={()=>{navigation.navigate("Vreit Withdrwal")}}>
+                                        {item.shifted===1&& <TouchableOpacity onPress={()=>{navigation.navigate("Vreit Withdrwal")}}>
                                             <Text style={{backgroundColor:item.shifted==1?"#635e5e":"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>
-                                        </TouchableOpacity>
+                                        </TouchableOpacity>}
 
                                     </View>
                                 </View>

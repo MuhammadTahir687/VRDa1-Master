@@ -25,6 +25,7 @@ import RBModal from "../Components/RBModel";
 import WS from "../Components/WalletSubmit";
 import Card from "../Components/Card";
 import Toast from "react-native-simple-toast";
+import RH from "../Components/ReportHeading";
 
 export default function Wallet() {
     const [show, setShow] = useState(true);
@@ -42,7 +43,8 @@ export default function Wallet() {
     const [purchased,setPurchased]=useState(0);
     const [transfered,setTransfered]=useState(0)
     const [withdraw,setWithdraw]=useState(0);
-    const [users,setUsers]=useState([]);
+    const [childs,setChilds]=useState([]);
+    const [parents,setParents]=useState([])
     const [btn,setBtn]=useState(0);
     const [details,setDetails]=useState('');
     const [modalmsg,setmodalmsg]=useState('');
@@ -64,7 +66,8 @@ export default function Wallet() {
             setTransfered(response.vreit_transfer.transfer)
             setWithdraw(response.vreit_transfer.receive)
             setAvailable(response.vreit_transfer.available.toFixed(2))
-            setUsers(response.child_users)
+            setChilds(response.child_users)
+            setParents(response.parent_users)
         } catch (e) {console.log(e)}
     };
 
@@ -105,6 +108,7 @@ export default function Wallet() {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView>
+                {/*<RH text={"VREIT Transfer | Customer To Customer"}/>*/}
                 <View style={styles.walletbuttoncontainer}>
                     {Button.map((item,index)=>(<Item key={index} onPress={()=>{setBtn(index)}} color={index==btn?"white":"black"} backgroundColor={index==btn?"black":"white"} text1={item.title}/>))}
                 </View>
@@ -126,8 +130,11 @@ export default function Wallet() {
                                 selectedValue={selectedValue}
                                 style={{ height: 50, width: "100%" }}
                                 onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue),setSelectedValuevalidation('')}}>
-                                <Picker.Item label="Choose One" value="" />
-                                {users.sort((a, b) => a.name.localeCompare(b.name)).map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
+                                <Picker.Item label="Choose One"  enabled={false} />
+                                {parents.length!=0&&<Picker.Item label="=====Parents======="  enabled={false} />}
+                                {parents.sort((a, b) => a.name.localeCompare(b.name)).map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
+                                {childs.length!=0 && <Picker.Item label="=====Childs======="  enabled={false} />}
+                                {childs.sort((a, b) => a.name.localeCompare(b.name)).map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
                             </Picker>
                         </View>
                         <Text style={styles.walleterror}>{selectedValuevalidation}</Text>

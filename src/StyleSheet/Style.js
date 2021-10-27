@@ -62,7 +62,7 @@ export default StyleSheet.create({
   cardicon:{color:"white",marginTop:5},
 
   dashboardh1:{ fontWeight: "bold", fontSize: 20, marginLeft: 10},
-    dashboardh2:{ fontWeight: "bold", fontSize: 20, marginLeft: 10,textDecorationLine:"underline"},
+    dashboardh2:{ fontWeight: "bold", fontSize: 20, marginLeft: 10,textDecorationLine:"underline",textAlign:'center'},
   pg1container:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10},
   pgbottomcontainer:{ flex: 1, flexDirection: "row", justifyContent: "space-between" },
   pgbottomtext:{fontSize:12,marginHorizontal:10},
@@ -212,7 +212,7 @@ export default StyleSheet.create({
     vwindowcontainer:{flex:1,marginHorizontal:10,backgroundColor:"#d4d0d0",marginVertical:10},
     vheading:{backgroundColor:"black",color:"white",paddingLeft:10,paddingVertical:10,fontWeight:"bold",borderTopLeftRadius:5,borderTopRightRadius:5},
     v2container:{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10},
-    v2containertext1:{flex:1,backgroundColor:"#828080",color:"white",paddingLeft:10,fontWeight:"bold",paddingVertical:5},
+    v2containertext1:{flex:1,backgroundColor:"#828080",color:"white",paddingLeft:10,fontWeight:"bold",paddingVertical:5,borderTopRightRadius:5,borderTopLeftRadius:5},
     v2continertext2:{flex:1,backgroundColor:"transparent",color:"black",paddingLeft:10,fontWeight:"bold",paddingVertical:5},
     v3container:{flex:1,marginVertical:10,borderWidth:1,borderColor:"black",borderRadius:5,marginHorizontal:10},
     v3input1:{backgroundColor:"white",marginTop:10,marginHorizontal:10,borderRadius:5},
