@@ -24,12 +24,25 @@ import MText from "../Components/ModalText";
 import {ExpandableListView} from 'react-native-expandable-listview';
 import { List } from 'react-native-paper';
 
-export default function QuaterlyVreit() {
+export default function QuaterlyVreit({navigation}) {
     const [isModalVisible, setModalVisible] = useState(false);
     const [item,setItem]=useState('');
     const [index,setIndex]=useState('');
     const [expanded,setExpanded]=useState(false)
     const [opacity,setOpacity]=useState("");
+    const [packagetype,setPackagetype]=useState('');
+    const [packageprice,setPackageprice]=useState('');
+    const [vreitprice,setVreitprice]=useState('');
+    const [avamount,setAvamount]=useState('');
+    const [avpoints,setAvpoints]=useState('');
+    const [abamount,setAbamount]=useState('');
+    const [abpoints,setAbpoints]=useState('');
+    const [asamount,setAsamount]=useState('');
+    const [aspoints,setAspoints]=useState('');
+    const [purchases,setPurchases]=useState([]);
+    const [quaters,setQuaters]=useState([])
+    const [shifted,setShifted]=useState('')
+
 
     if (Platform.OS === 'android') {
         UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -40,11 +53,27 @@ export default function QuaterlyVreit() {
         {opacity==item.id?setExpanded(!expanded):setExpanded(true)}
     }
 
+    useEffect(async()=>{await response()},[])
+    const response=async()=>{
+        const res=await GETAPI("/api/quarterly-vreits")
+        setPackagetype(res.data.package.package_name)
+        setPackageprice(res.data.package.package_price)
+        setVreitprice(res.data.current_vreit_price)
+        setAvamount(res.data.total_assigned_vreits.amount.toFixed(5))
+        setAvpoints(res.data.total_assigned_vreits.points.toFixed(5))
+        setAbamount(res.data.total_bonus_vreits.amount.toFixed(5))
+        setAbpoints(res.data.total_bonus_vreits.points)
+        setAsamount(res.data.total_shifted_vreits.amount.toFixed(5))
+        setAspoints(res.data.total_shifted_vreits.points)
+        setPurchases(res.data.purchases)
+        console.log(res.data.current_vreit_price)
+    }
+
     const DATA = [
-        { title: "Package", value: '25,000', value1:"( "+"jsdsakd"+"*"+"shbhxsh"+" )", type:"Premium",color:"white" },
-        { title: "Assigned",  value: '25,000', value1:"( "+"jsdsakd"+"*"+"shbhxsh"+" )",color:"transparent"},
-        { title: "Bonus",  value: '25,000', value1:"( "+"jsdsakd"+"*"+"shbhxsh"+" )",color:"transparent"},
-        { title: "Total Shifted Verits",  value: '25,000', value1:"( "+"jsdsakd"+"*"+"shbhxsh"+" )",color:"transparent"},
+        { title: "Package", value: packageprice, type:packagetype,color:"white" },
+        { title: "Assigned",  value: avamount, value1:"( "+avpoints+"*"+vreitprice+" )",color:"transparent"},
+        { title: "Bonus",  value: abamount, value1:"( "+abpoints+"*"+vreitprice+" )",color:"transparent"},
+        { title: "Total Shifted Verits",  value: asamount, value1:"( "+aspoints+"*"+vreitprice+" )",color:"transparent"},
     ];
     const Data = [
         {id:1, title: "Invoice", value: '25,000', value1:"( "+"jsdsakd"+"*"+"shbhxsh"+" )", type:"Premium",color:"white" },
@@ -78,13 +107,12 @@ export default function QuaterlyVreit() {
                )}/>
            </View>
            <View style={{flex:1,marginBottom:10}}>
-           <FlatList data={Data} renderItem={({ item, index }) => (
+           <FlatList data={purchases} renderItem={({ item, index }) => (
             <View style={styles.invoicecontainer}>
                 <View style={styles.invoiceheader}>
-                <Text>{index+1} : {item.title} : </Text>
-                    <Text style={styles.invoiceheadervalue}>( ${item.value} )</Text>
+                <Text>{index+1} : Invoice : </Text>
+                    <Text style={styles.invoiceheadervalue}>( ${parseFloat(item.purchase_price).toFixed(5)} )</Text>
                 </View>
-
                 <TouchableOpacity style={styles.invoicebtncontainer} onPress={()=>{setModalVisible(true),setItem(item),setIndex(index)}}>
                     <Ionicons name="newspaper-outline" color="white" size={18} style={styles.invoicebtnicon}/>
                     <Text style={styles.invoicebtntext}>Invoice</Text>
@@ -92,8 +120,8 @@ export default function QuaterlyVreit() {
 
                 <List.Section style={styles.listcontainer}>
                     <List.Accordion title="Quaterly Bonus VREITS" titleStyle={styles.listtitlestyle}>
-                        <FlatList data={quater} renderItem={({ item, index }) => (
-                                <View style={styles.listviewcontainer}>
+                        <FlatList data={item.quarters} renderItem={({ item, index }) => (
+                                <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5,backgroundColor:item.shifted==1?"#bfbfbf":"transparent"}}>
                                     <View style={styles.listimageconstainer}>
                                         <Image source={require('../Assets/Logo.png')} style={styles.listimage}/>
                                     </View>
@@ -102,35 +130,16 @@ export default function QuaterlyVreit() {
                                         <Text style={styles. quaterdatevalue}>{item.date}</Text>
                                     </View>
                                     <View style={styles.listquaterconatiner}>
-                                        <Text style={styles.listvreit}>VREIT: {item.Vreit}</Text>
-                                        <Text style={styles.listvreitshifted}>Vreit Shifted</Text>
+                                        <Text style={styles.listvreit}>VREIT: {item.quarter_vreits}</Text>
+                                        <TouchableOpacity onPress={()=>{navigation.navigate("Vreit Withdrwal")}}>
+                                            <Text style={{backgroundColor:item.shifted==1?"#635e5e":"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>
+                                        </TouchableOpacity>
+
                                     </View>
                                 </View>
                             )}/>
                     </List.Accordion>
                 </List.Section>
-
-                {/*<TouchableOpacity style={styles.invoicefooter}  onPress={()=>{setOpacity(item.id);changeLayout({item});}}>*/}
-                {/*    <Text style={styles.invoicefootertext}>Quaterly Bonus VREITS</Text>*/}
-                {/*    <Ionicons name="chevron-down-circle-sharp" size={20}/>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<View style={{height:item.id===opacity && expanded ? null : 0, overflow:"hidden"}}>*/}
-                {/*    <FlatList data={quater} renderItem={({ item, index }) => (*/}
-                {/*        <View style={{flexDirection:"row",alignItems:'center',justifyContent:'space-between',borderBottomWidth:1,marginVertical:5}}>*/}
-                {/*            <View style={{flex:1,marginVertical:10}}>*/}
-                {/*                <Image source={require('../Assets/Logo.png')} style={{width:50,height:50,resizeMode:'contain'}}/>*/}
-                {/*            </View>*/}
-                {/*            <View style={{flex:2}}>*/}
-                {/*                <Text style={{fontWeight:'bold'}}>Quater Date:</Text>*/}
-                {/*                <Text style={{color:"#666262"}}>{item.date}</Text>*/}
-                {/*            </View>*/}
-                {/*            <View style={{flex:2}}>*/}
-                {/*                <Text style={{fontWeight:'normal'}}>VREIT: {item.Vreit}</Text>*/}
-                {/*                <Text style={{backgroundColor:"green",color:"white", borderRadius:5,alignSelf:"flex-start",paddingHorizontal:10}}>Vreit Shifted</Text>*/}
-                {/*            </View>*/}
-                {/*        </View>*/}
-                {/*    )}/>*/}
-                {/*</View>*/}
             </View>
                 )}/>
            </View>
@@ -146,15 +155,14 @@ export default function QuaterlyVreit() {
                        </TouchableOpacity>
                    </View>
                    <View style={styles. invoicemodalheader}>
-                       <Text>{index+1} : {item.title} : </Text>
-                       <Text style={styles.invoiceheadervalue}>( ${item.value} )</Text>
+                       <Text>{index+1} : Invoice : </Text>
+                       <Text style={styles.invoiceheadervalue}>( ${parseFloat(item.purchase_price).toFixed(5)} )</Text>
                    </View>
-                   <MText text1={"Start At"} text2={item.transactions} />
-                   <MText text1={"Assigned VREITS"} text2={item.transactions} backgroundColor={"#bfbfbf"} />
-                   <MText text1={"Bonus VREITS"} text2={item.total}  />
-                   <MText text1={"Shifted VREITS"} text2={parseFloat(item.percent_70).toFixed(1)+'%'} backgroundColor={"#bfbfbf"} />
-                   <MText text1={"Pin#"} text2={parseFloat(item.percent_30).toFixed(1)+'%'}  />
-                   <MText text1={"Expiry At"} text2={item.closing_date} backgroundColor={"#bfbfbf"} />
+                   <MText text1={"Start At"} text2={item.start_at} backgroundColor={"#bfbfbf"} />
+                   <MText text1={"Assigned VREITS"} text2={item.assigned_vreits}  />
+                   <MText text1={"Bonus VREITS"} text2={item.bonus_vreits} backgroundColor={"#bfbfbf"} />
+                   <MText text1={"Shifted VREITS"} text2={item.shifted_vreits}  />
+                   <MText text1={"Expiry At"} text2={item.expiry_date} backgroundColor={"#bfbfbf"} />
                </View>
            </Modal>
 

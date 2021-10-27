@@ -20,6 +20,7 @@ import { GETAPI } from "../API/APIResponse";
 import MText from "../Components/ModalText";
 import MCText from "../Components/ModalColorText";
 import RH from '../Components/ReportHeading'
+import MD from "../Components/ModalDetails";
 
 export default function RecieveHistory() {
   const [isModalVisible, setModalVisible] = useState();
@@ -53,7 +54,8 @@ export default function RecieveHistory() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ height:300, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+            <View style={styles.modalmaincontainer}>
+                <MD text1={"Sender Message"}  text2={item.admin_feedback?item.admin_feedback:"Not Available"}/>
               <ScrollView style={{marginBottom:20,}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
@@ -64,12 +66,12 @@ export default function RecieveHistory() {
                 <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
               </TouchableOpacity>
             </View>
-            <MText text1={"Ref.Code"} text2={item.code} backgroundColor={"transparent"}/>
-            <MText text1={"Amount"} text2={item.amount} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"From"} text2={item.createdFor} backgroundColor={"transparent"}/>
-            <MText text1={"Date"} text2={item.created_at} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Status"} text2={item.status} backgroundColor={"transparent"}/>
-            <MText text1={"Sender Message"} text2={item.admin_feedback} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>
+            <MText text1={"Ref.Code"} text2={item.code?item.code:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Amount"} text2={item.amount?item.amount:""} backgroundColor={"transparent"}/>
+            <MText text1={"From"} text2={item.createdFor?item.createdFor:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Date"} text2={item.created_at?item.created_at:""} backgroundColor={"transparent"}/>
+            <MText text1={"Status"} text2={item.status?item.status:""} backgroundColor={"#bfbfbf"}/>
+            {/*<MText text1={"Sender Message"} text2={item.admin_feedback?item.admin_feedback:" "} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>*/}
               </ScrollView>
           </View>
         </Modal> : <View></View> }

@@ -24,17 +24,17 @@ export default function VreitAppTab() {
                     } else if (route.name === 'Direct Commission') {
                         iconName = focused ? 'cash' : 'cash-outline';
                     }
-
-                    // You can return any component that you like here!
                     return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown:false,
                 tabBarActiveTintColor: 'black',
                 tabBarInactiveTintColor: '#797777',
-                tabBarStyle:{paddingBottom:5}
+                tabBarStyle:{paddingBottom:8},
+                tabBarHideOnKeyboard:true,
+
             })}>
             <Tab.Screen name="Quaterly VREIT"  component={QuaterlyVreit}  />
-            <Tab.Screen name="Vreit Withdrwal"  component={VreitWithdrawl}  />
+            <Tab.Screen name="Vreit Withdrwal"  component={VreitWithdrawl} />
             <Tab.Screen name="Vreit Logs"  component={VreitLogs}  />
             <Tab.Screen name="Vreit Transfer C2C"  component={VreitTransferC2C}  />
 

@@ -6358,6 +6358,11 @@
   "resolved" "https://registry.npmjs.org/react-native-timeline-listview/-/react-native-timeline-listview-0.2.3.tgz"
   "version" "0.2.3"
 
+"react-native-tip@^0.0.18":
+  "integrity" "sha512-RZdUwbTlFebsoBLiChXFoDsQuehlbkBka7hcuQt4gkLotghvtmCg3wsFpgYZmdvtUkUSwNAoRp3WnXpxml/ESw=="
+  "resolved" "https://registry.npmjs.org/react-native-tip/-/react-native-tip-0.0.18.tgz"
+  "version" "0.0.18"
+
 "react-native-vector-icons@*", "react-native-vector-icons@^8.1.0", "react-native-vector-icons@>7.0.0":
   "integrity" "sha512-sHIdBB6Y0dHaot2fMXgy5J/hhCn5YuyN7SKDNFgPzL8KA1oF2/v7mgYMavnK7LIIs2dJoGnDANKf61dsU+TZlg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz"

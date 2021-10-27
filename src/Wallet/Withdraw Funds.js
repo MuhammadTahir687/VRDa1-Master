@@ -20,7 +20,7 @@ export default function WithdrawFunds(){
 
   const [show, setShow] = useState(true);
   const [selectedValue, setSelectedValue] = useState('');
-  const [selectedValue1, setSelectedValue1] = useState('');
+  const [selectedValue1, setSelectedValue1] = useState();
   const [selectedValuevalidation, setSelectedValuevalidation] = useState('');
   const [selectedValue1validation, setSelectedValue1validation] = useState('');
   const [checkvalidation, setCheckvalidation] = useState('');
@@ -38,6 +38,10 @@ export default function WithdrawFunds(){
   const [modalmsg,setmodalmsg]=useState('');
   const [btn,setBtn]=useState(0);
   const [loading, setLoading] = useState(true);
+  const [percent,setPercent]=useState(0);
+  const [minamount,setMinamount]=useState('')
+    const [maxamount,setMaxamount]=useState('')
+    const [amount,setAmount]=useState('')
   const Button=[{id:1,title:"Wallet"},{id:2,title:"Proceed Order"}]
 
   useEffect(async () => {await response()}, []);
@@ -53,30 +57,45 @@ export default function WithdrawFunds(){
       setVreit(response.data.vreit)
       setWithdraw(response.data.withdraw)
     } catch (e) {
-      console.log(e);
+      Toast.show(e);
     }
   };
   const submit=async ()=> {
-    if (selectedValue == '') { setSelectedValuevalidation("Select Amount to Tranfer")}
+    if (amount == '') { setSelectedValuevalidation("Enter Amount to Tranfer")}
+    else if(amount<minamount){setSelectedValuevalidation("Minimum amount is "+minamount)}
+    else if(amount>maxamount){setSelectedValuevalidation("Maximum amount is "+maxamount)}
     else if (selectedValue1 == '') {setSelectedValue1validation("Select Payment Method")}
     else if (details == '') {setDetailvalidation("Add Withdraw Details")}
     else if (check == false) {setCheckvalidation("Select the Term of Conditions")}
     else {
-
-      const userid= await GETDATA('user');
-      const data = new FormData();
-      data.append('payment_type',selectedValue1);
-      data.append('details', details,);
-      data.append("amount", selectedValue);
-      data.append("user_id", userid.user.id);
-      const response = await POSTAPI('/api/transfer-funds', data)
-      if(response.data.status==true) {
-        setmodalmsg(response.data.message)
-        setModalVisible(true)
-      }else{
-        Toast.show(response.data.message);
-      }
+        try {
+            const userid = await GETDATA('user');
+            const data = new FormData();
+            data.append('payment_type', selectedValue1);
+            data.append('details', details,);
+            data.append("amount", amount);
+            data.append("user_id", userid.user.id);
+            const response = await POSTAPI('/api/transfer-funds', data)
+            console.log("xjcnasjd", response.data)
+            if (response.data.status == true) {
+                setmodalmsg(response.data.message)
+                setModalVisible(true)
+            } else {
+                Toast.show(response.data.message);
+            }
+        }catch (e){Toast.show(e)}
     }
+
+  }
+
+  const responsevalidations =async (itemValue) => {
+      const data={payment_type:itemValue}
+      const res =await POSTAPI('/api/get-services-charges',data)
+      setPercent(res.data.percentage)
+      setMinamount(res.data.min_amount)
+      setMaxamount(res.data.max_amount)
+
+
   }
   const DetailsValidation = () => {
     if(details==""){setDetailvalidation("Enter the Withdraw Details")}
@@ -87,7 +106,7 @@ export default function WithdrawFunds(){
     else{setSelectedValue1validation('')}
   }
   const AmountValidation = () => {
-    if(selectedValue==""){setSelectedValuevalidation("Select the Amount")}
+    if(amount==""){setSelectedValuevalidation("Select the Amount")}
     else{setSelectedValuevalidation('')}
   }
     return(
@@ -108,20 +127,12 @@ export default function WithdrawFunds(){
         </View> :
         <View>
           <Text style={styles.wh}>Proceed With</Text>
-          <View style={styles.wpickercontainer}>
-            <Picker
-              selectedValue={selectedValue}
-              onBlur={AmountValidation}
-              style={{ height:50, width: "100%" }}
-              onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue),setSelectedValuevalidation('')}}
-            >
-              <Picker.Item label="Min Amount is 500" value="" style={{color:"#999595"}} />
-              <Picker.Item label="500" value="500"  />
-              <Picker.Item label="5000" value="5000" />
-              <Picker.Item label="50000" value="50000" />
-              <Picker.Item label="5000000" value="5000000" />
-            </Picker>
-          </View>
+            <TextInput style={styles.winput}
+                       placeholder="Amount"
+                       value={amount}
+                       keyboardType={"numeric"}
+                       onBlur={AmountValidation}
+                       onChangeText={(text)=>{setAmount(text),setSelectedValuevalidation('')}}/>
           <Text style={styles.walleterror}>{selectedValuevalidation}</Text>
           <Text style={styles.wh}>Select Payment Type</Text>
           <View style={styles.wpickercontainer}>
@@ -129,12 +140,12 @@ export default function WithdrawFunds(){
               selectedValue={selectedValue1}
               onBlur={AccountValidation}
               style={{ height:50, width: "100%" }}
-              onValueChange={(itemValue, itemIndex) => {setSelectedValue1(itemValue),setSelectedValue1validation('')}}
+              onValueChange={(itemValue, itemIndex) => {setSelectedValue1(itemValue),responsevalidations(itemValue),setSelectedValue1validation(''),setSelectedValuevalidation('')}}
             >
               <Picker.Item label="Select" value="" style={{color:"#999595"}} />
               <Picker.Item label="Bank" value="bank"  />
               <Picker.Item label="USDT" value="usdt" />
-              <Picker.Item label="Wallet" value="wallet" />
+              <Picker.Item label="BTC" value="btc" />
             </Picker>
           </View>
           <Text style={styles.walleterror}>{selectedValue1validation}</Text>
@@ -142,7 +153,7 @@ export default function WithdrawFunds(){
           <TextInput style={styles.winput} value={details} onBlur={DetailsValidation} onChangeText={(text)=>{setDetails(text),setDetailvalidation('')}}/>
           <Text style={styles.walleterror}>{detailvalidation}</Text>
           <View style={styles.notes}>
-            <Text>5% service charges will be applicable 7 working days required.</Text>
+            <Text>{percent}% service charges will be applicable 7 working days required.</Text>
           </View>
             <Check onPress={() => {setCheck(!check),setCheckvalidation('')}} checked={check}/>
           <Text style={styles.walleterror}>{checkvalidation}</Text>

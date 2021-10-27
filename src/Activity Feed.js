@@ -48,13 +48,13 @@ export default function ActivityFeed() {
                       setModalVisible(true)
                     }} style={styles.activityfeedflatlist}>
                       <Text style={styles.activityfeeditemh}>{item.heading}</Text>
-                      <Text style={styles.comitem1}>{item.date}</Text>
+                      <Text style={styles.comitem1}>Activity Date:{item.date}</Text>
                     </TouchableOpacity>
                   )}
         />
       </View>
           <Modal isVisible={isModalVisible}>
-            <View style={{backgroundColor: "white", height: 180, alignSelf: "center", width: 300, borderRadius: 20 }}>
+              <View style={styles.modalmaincontainer}>
               <View style={styles.modaluser}>
                 <View style={styles.modalh}>
                   <Ionicons name="person" size={15} color="white"/>

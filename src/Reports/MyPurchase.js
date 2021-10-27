@@ -56,7 +56,7 @@ export default function MyPurchase() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ height:340, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+          <View style={styles.modalmaincontainer}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
                 <Ionicons name="person" size={15} color="white" />
@@ -66,14 +66,14 @@ export default function MyPurchase() {
                 <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
               </TouchableOpacity>
             </View>
-            <MText text1={"Ref.Code"} text2={item.code} backgroundColor={"transparent"}/>
-            <MText text1={"Package Name"} text2={item.package_name} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Package Price"} text2={item.package_price} backgroundColor={"transparent"}/>
-            <MText text1={"BV"} text2={item.package_business_volume} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"VREIT Points"} text2={item.tokens_assigned} backgroundColor={"transparent"}/>
-            <MText text1={"VREIT Bonus"} text2={item.extra_tokens_assigned} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"VREIT Points Price"} text2={item.per_token_price} backgroundColor={"transparent"}/>
-            <MText text1={"VREIT Points Price"} text2={item.used_at} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Ref.Code"} text2={item.code?item.code:""} backgroundColor={"transparent"}/>
+            <MText text1={"Package Name"} text2={item.package_name?item.package_name:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Package Price"} text2={item.package_price?item.package_price:""} backgroundColor={"transparent"}/>
+            <MText text1={"BV"} text2={item.package_business_volume?item.package_business_volume:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"VREIT Points"} text2={item.tokens_assigned?item.tokens_assigned:""} backgroundColor={"transparent"}/>
+            <MText text1={"VREIT Bonus"} text2={item.extra_tokens_assigned?item.extra_tokens_assigned:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"VREIT Points Price"} text2={item.per_token_price?item.per_token_price:""} backgroundColor={"transparent"}/>
+            <MText text1={"VREIT Points Price"} text2={item.used_at?item.used_at:""} backgroundColor={"#bfbfbf"}/>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>

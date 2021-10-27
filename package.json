@@ -43,6 +43,7 @@
     "react-native-snap-carousel": "^3.9.1",
     "react-native-textarea": "^1.0.4",
     "react-native-timeline-listview": "^0.2.3",
+    "react-native-tip": "^0.0.18",
     "react-native-vector-icons": "^8.1.0",
     "rn-country-picker": "^0.0.12"
   },

@@ -26,7 +26,7 @@ import WS from "../Components/WalletSubmit";
 import Card from "../Components/Card";
 import Toast from "react-native-simple-toast";
 
-export default function VreitTransferC2C() {
+export default function Wallet() {
     const [show, setShow] = useState(true);
     const [selectedValue, setSelectedValue] = useState('');
     const [selectedValue1, setSelectedValue1] = useState('');
@@ -36,11 +36,11 @@ export default function VreitTransferC2C() {
     const [check, setCheck] = useState(false);
     const [isModalVisible, setModalVisible] = useState();
     const [available,setAvailable]=useState(0);
-    const [earning,setEarning]=useState(0);
-    const [recieved,setRecieved]=useState(0);
-    const [sent,setSent]=useState(0);
-    const [spent,setSpent]=useState(0);
     const [vreit,setVreit]=useState(0);
+    const [shifted,setShifted]=useState(0);
+    const [swaped,setSwaped]=useState(0);
+    const [purchased,setPurchased]=useState(0);
+    const [transfered,setTransfered]=useState(0)
     const [withdraw,setWithdraw]=useState(0);
     const [users,setUsers]=useState([]);
     const [btn,setBtn]=useState(0);
@@ -48,36 +48,40 @@ export default function VreitTransferC2C() {
     const [modalmsg,setmodalmsg]=useState('');
     const [detailvalidation,setDetailvalidation]=useState('');
     const [loading, setLoading] = useState(true);
+    const [amount,setAmount]=useState('')
 
-    const Button=[{id:1,title:"Wallet"},{id:2,title:"Proceed Order"}]
+    const Button=[{id:1,title:"Transfer Points"},{id:2,title:"Proceed Transfer"}]
     useEffect(async () => {await response()}, []);
     const response = async () => {
         try {
-            const response= await GETAPI("/api/transfer-funds")
+            const response= await GETAPI("/api/vreit-transfer-customer")
             setLoading(false);
-            setAvailable(response.data.available.available)
-            setEarning(response.data.available.earning.toFixed(2))
-            setRecieved(response.data.available.receieved)
-            setSent(response.data.available.sent)
-            setSpent(response.data.available.spent)
-            setVreit(response.data.available.vreit)
-            setWithdraw(response.data.available.withdraw)
-            setUsers(response.data.childs)
+            console.log("jdbfcjasd",response.vreit_transfer.shifted)
+            setShifted(response.vreit_transfer.shifted)
+            setSwaped(response.vreit_transfer.swapped.toFixed(2))
+            setVreit(response.vreit_transfer.vreit)
+            setPurchased(response.vreit_transfer.purchased)
+            setTransfered(response.vreit_transfer.transfer)
+            setWithdraw(response.vreit_transfer.receive)
+            setAvailable(response.vreit_transfer.available.toFixed(2))
+            setUsers(response.child_users)
         } catch (e) {console.log(e)}
     };
 
     const submit=async ()=>{
         if(selectedValue==''){setSelectedValuevalidation("Select Profile Account")}
-        else if(selectedValue1==''){setSelectedValue1validation("Select Amount to Tranfer")}
+        else if(amount==''){setSelectedValue1validation("Enter Amount to Tranfer")}
+        else if(amount>available){setSelectedValue1validation("Maximum Amount is $"+available)}
         else if(details==''){setDetailvalidation("Add Transfer Details")}
         else if(check==false){setCheckvalidation("Agree on the Term of Conditions")}
         else {
 
             const data=new FormData();
             data.append('details', details,);
-            data.append("amount", selectedValue1);
-            data.append("user_id", selectedValue);
-            const response= await POSTAPI('/api/transfer-funds',data)
+            data.append("points", amount);
+            data.append("receiver_id", selectedValue);
+            const response= await POSTAPI('/api/vreit-transfer-process',data)
+            console.log(response.data)
             if(response.data.status==true) {
                 setmodalmsg(response.data.message)
                 setModalVisible(true)
@@ -95,7 +99,7 @@ export default function VreitTransferC2C() {
         else{setSelectedValuevalidation('')}
     }
     const AmountValidation = () => {
-        if(selectedValue1==""){setSelectedValue1validation("Select the Amount")}
+        if(amount==""){setSelectedValue1validation("Enter the Points")}
         else{setSelectedValue1validation('')}
     }
     return (
@@ -106,13 +110,13 @@ export default function VreitTransferC2C() {
                 </View>
                 {btn==0 ?
                     <View>
-                        <WH text={"Shifted (+)"} value={"$"+earning} backgroundColor={"#bfbfbf"}/>
-                        <WH text={"Swapped (-)"} value={"$"+sent} backgroundColor={"transparent"}/>
-                        <WH text={"Vreit Wallet (-)"} value={"$"+spent} backgroundColor={"#bfbfbf"}/>
-                        <WH text={"Purchased (-)"} value={"$"+recieved} backgroundColor={"transparent"}/>
-                        <WH text={"Transfered (-)"} value={"$"+vreit} backgroundColor={"#bfbfbf"}/>
-                        <WH text={"Withdraw (-)"} value={"$"+withdraw} backgroundColor={"transparent"}/>
-                        <WH text={"Available (=)"} value={"$"+available} backgroundColor={"#585454"} color={"white"}/>
+                        <WH text={"Shifted (+)"} value={shifted} backgroundColor={"#bfbfbf"}/>
+                        <WH text={"Swapped (-)"} value={swaped} backgroundColor={"transparent"}/>
+                        <WH text={"Vreit Wallet (-)"} value={vreit} backgroundColor={"#bfbfbf"}/>
+                        <WH text={"Purchased (-)"} value={purchased} backgroundColor={"transparent"}/>
+                        <WH text={"Transfered (-)"} value={transfered} backgroundColor={"#bfbfbf"}/>
+                        <WH text={"Recieved (+)"} value={withdraw} backgroundColor={"transparent"}/>
+                        <WH text={"Available (=)"} value={available} backgroundColor={"#585454"} color={"white"}/>
                     </View> :
                     <View>
                         <Text style={styles.wh}>Profile Account</Text>
@@ -123,23 +127,17 @@ export default function VreitTransferC2C() {
                                 style={{ height: 50, width: "100%" }}
                                 onValueChange={(itemValue, itemIndex) => {setSelectedValue(itemValue),setSelectedValuevalidation('')}}>
                                 <Picker.Item label="Choose One" value="" />
-                                {users.map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
+                                {users.sort((a, b) => a.name.localeCompare(b.name)).map((item,index)=>(<Picker.Item key={index} label={item.name} value={item.id} />))}
                             </Picker>
                         </View>
                         <Text style={styles.walleterror}>{selectedValuevalidation}</Text>
                         <Text style={styles.wh}>Proceed With</Text>
-                        <View style={styles.wpickercontainer}>
-                            <Picker
-                                onBlur={AmountValidation}
-                                selectedValue={selectedValue1} style={{ height: 50, width: "100%" }}
-                                onValueChange={(itemValue, itemIndex) => {setSelectedValue1(itemValue),setSelectedValue1validation('')}}>
-                                <Picker.Item label="Min Amount is 500" value="" style={{ color: "#999595" }} />
-                                <Picker.Item label="500" value="500" />
-                                <Picker.Item label="5000" value="5000" />
-                                <Picker.Item label="50000" value="50000" />
-                                <Picker.Item label="5000000" value="5000000" />
-                            </Picker>
-                        </View>
+                        <TextInput style={styles.winput}
+                                   placeholder="In Points"
+                                   value={amount}
+                                   keyboardType={"numeric"}
+                                   onBlur={AmountValidation}
+                                   onChangeText={(text)=>{setAmount(text),setSelectedValue1validation('')}}/>
                         <Text style={styles.walleterror}>{selectedValue1validation}</Text>
                         <Text style={styles.wh}>Withdraw Details</Text>
                         <TextInput style={styles.winput} value={details} onBlur={DetailsValidation} onChangeText={(text)=>{setDetails(text),setDetailvalidation('')}}/>

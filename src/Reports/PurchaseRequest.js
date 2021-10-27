@@ -20,6 +20,7 @@ import { GETAPI } from "../API/APIResponse";
 import MText from "../Components/ModalText";
 import MCText from "../Components/ModalColorText";
 import RH from '../Components/ReportHeading'
+import MD from "../Components/ModalDetails";
 
 export default function PurchaseRequest() {
   const [isModalVisible, setModalVisible] = useState();
@@ -52,7 +53,9 @@ export default function PurchaseRequest() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ height:310, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+            <View style={styles.modalmaincontainer}>
+                <MD text1={"Admin Notes"}  text2={item.admin_feedback?item.admin_feedback:"Not Available"}/>
+                <MD text1={"User Notes"} text2={item.user_details?item.user_details:"Not Available"}/>
               <ScrollView style={{marginBottom:20}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
@@ -63,13 +66,13 @@ export default function PurchaseRequest() {
                 <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
               </TouchableOpacity>
             </View>
-            <MText text1={"Request Type"} text2={item.submission_type} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Package Name"} text2={item.package.title} backgroundColor={"transparent"}/>
-            <MText text1={"User Notes"} text2={item.user_details} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Admin Notes"} text2={item.admin_feedback} backgroundColor={"transparent"}/>
-            <MText text1={"Status"} text2={item.status} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Create Date"} text2={item.created_at} backgroundColor={"transparent"}/>
-            <MText text1={"Action Date"} text2={item.updated_at} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Request Type"} text2={item.submission_type?item.submission_type:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Package Name"} text2={item.package.title?item.package.title:""} backgroundColor={"transparent"}/>
+            {/*<MText text1={"User Notes"} text2={item.user_details?item.user_details:"Not Available"} backgroundColor={"#bfbfbf"}/>*/}
+            {/*<MText text1={"Admin Notes"} text2={item.admin_feedback?item.admin_feedback:"Not Available"} backgroundColor={"transparent"}/>*/}
+            <MText text1={"Status"} text2={item.status?item.status:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Create Date"} text2={item.created_at?item.created_at:""} backgroundColor={"transparent"}/>
+            <MText text1={"Action Date"} text2={item.updated_at?item.updated_at:""} backgroundColor={"#bfbfbf"}/>
               </ScrollView>
           </View>
         </Modal> : <View></View> }

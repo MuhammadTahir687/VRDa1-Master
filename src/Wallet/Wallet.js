@@ -48,6 +48,7 @@ export default function Wallet() {
   const [modalmsg,setmodalmsg]=useState('');
   const [detailvalidation,setDetailvalidation]=useState('');
   const [loading, setLoading] = useState(true);
+    const [amount,setAmount]=useState('')
 
   const Button=[{id:1,title:"Wallet"},{id:2,title:"Proceed Order"}]
   useEffect(async () => {await response()}, []);
@@ -68,14 +69,16 @@ export default function Wallet() {
 
   const submit=async ()=>{
     if(selectedValue==''){setSelectedValuevalidation("Select Profile Account")}
-    else if(selectedValue1==''){setSelectedValue1validation("Select Amount to Tranfer")}
+    else if(amount==''){setSelectedValue1validation("Enter Amount to Tranfer")}
+    else if(amount<100){setSelectedValue1validation("Minimum Amount is $100")}
+    else if(amount>available){setSelectedValue1validation("Maximum Amount is $"+available)}
     else if(details==''){setDetailvalidation("Add Transfer Details")}
     else if(check==false){setCheckvalidation("Agree on the Term of Conditions")}
     else {
 
       const data=new FormData();
       data.append('details', details,);
-      data.append("amount", selectedValue1);
+      data.append("amount", amount);
       data.append("user_id", selectedValue);
       const response= await POSTAPI('/api/transfer-funds',data)
       if(response.data.status==true) {
@@ -95,7 +98,7 @@ export default function Wallet() {
     else{setSelectedValuevalidation('')}
   }
   const AmountValidation = () => {
-    if(selectedValue1==""){setSelectedValue1validation("Select the Amount")}
+    if(amount==""){setSelectedValue1validation("Enter the Amount")}
     else{setSelectedValue1validation('')}
   }
   return (
@@ -128,19 +131,13 @@ export default function Wallet() {
           </View>
           <Text style={styles.walleterror}>{selectedValuevalidation}</Text>
           <Text style={styles.wh}>Proceed With</Text>
-          <View style={styles.wpickercontainer}>
-            <Picker
-              onBlur={AmountValidation}
-              selectedValue={selectedValue1} style={{ height: 50, width: "100%" }}
-              onValueChange={(itemValue, itemIndex) => {setSelectedValue1(itemValue),setSelectedValue1validation('')}}>
-              <Picker.Item label="Min Amount is 500" value="" style={{ color: "#999595" }} />
-              <Picker.Item label="500" value="500" />
-              <Picker.Item label="5000" value="5000" />
-              <Picker.Item label="50000" value="50000" />
-              <Picker.Item label="5000000" value="5000000" />
-            </Picker>
-          </View>
-          <Text style={styles.walleterror}>{selectedValue1validation}</Text>
+            <TextInput style={styles.winput}
+                       placeholder="Amount"
+                       value={amount}
+                       keyboardType={"numeric"}
+                       onBlur={AmountValidation}
+                       onChangeText={(text)=>{setAmount(text),setSelectedValue1validation('')}}/>
+            <Text style={styles.walleterror}>{selectedValue1validation}</Text>
           <Text style={styles.wh}>Withdraw Details</Text>
           <TextInput style={styles.winput} value={details} onBlur={DetailsValidation} onChangeText={(text)=>{setDetails(text),setDetailvalidation('')}}/>
           <Text style={styles.walleterror}>{detailvalidation}</Text>

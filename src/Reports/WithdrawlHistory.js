@@ -22,6 +22,7 @@ import MCText from "../Components/ModalColorText";
 import RH from '../Components/ReportHeading'
 import SelectDropdown from 'react-native-select-dropdown';
 import { useNavigation } from "@react-navigation/native";
+import MD from "../Components/ModalDetails";
 
 export default function WithdrawlHistory() {
   const [isModalVisible, setModalVisible] = useState();
@@ -56,7 +57,8 @@ export default function WithdrawlHistory() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ height:270, backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20 }}>
+            <View style={styles.modalmaincontainer}>
+                <MD text1={"Admin Note"}  text2={item.adminNotes?item.adminNotes:"Not Available"}/>
               <ScrollView style={{marginVertical:20}}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
@@ -67,11 +69,11 @@ export default function WithdrawlHistory() {
                 <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
               </TouchableOpacity>
             </View>
-            <MText text1={"Ref.Code"} text2={item.code} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Amount"} text2={item.amount} backgroundColor={"transparent"}/>
-            <MText text1={"Status"} text2={item.status} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Notes For Admin"} text2={item.adminNotes} backgroundColor={"transparent"} paddingRight={"1%"}/>
-            <MText text1={"Date"} text2={item.created_at} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>
+            <MText text1={"Ref.Code"} text2={item.code?item.code:""} backgroundColor={"transparent"}/>
+            <MText text1={"Amount"} text2={item.amount?item.amount:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Status"} text2={item.status?item.status:""} backgroundColor={"transparent"}/>
+            {/*<MText text1={"Notes For Admin"} text2={item.adminNotes?item.adminNotes:""} backgroundColor={"transparent"} paddingRight={"1%"}/>*/}
+            <MText text1={"Date"} text2={item.created_at?item.created_at:""} backgroundColor={"#bfbfbf"} paddingRight={"1%"}/>
               </ScrollView>
           </View>
         </Modal> : <View></View> }

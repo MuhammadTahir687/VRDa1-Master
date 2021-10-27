@@ -48,10 +48,11 @@ export default function BinaryCommission() {
                     setModaldata(item)
                     setModalVisible(true);
                   }} style={styles.allcomreportlist}>
-                    <Text style={styles.comitem}>Ref.Code</Text>
-                    <Text style={{fontSize:15}}>{item.pin_code}</Text>
-                    <Text style={styles.comitem}>Price  <Text style={{fontSize:15,fontWeight:"normal"}}>{item.total}</Text></Text>
-                    <Ionicons name="eye" size={18}  />
+                      <Text style={styles.comitem}>{item.pin_code}</Text>
+                      {/*<Text style={{fontSize:15}}>{item.pin_code}</Text>*/}
+                      <Text style={styles.comitem}>Total  <Text style={{fontSize:15,fontWeight:"normal"}}>({item.total})</Text></Text>
+                      <Text style={styles.comitem}>Status  <Text style={{fontSize:15,fontWeight:"normal"}}>({item.status})</Text></Text>
+                      {/*<Ionicons name="eye" size={18}  />*/}
                   </TouchableOpacity>
                 )}
       />
@@ -66,14 +67,14 @@ export default function BinaryCommission() {
               <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
             </TouchableOpacity>
           </View>
-            <MText text1={"Ref.Code"} text2={modaldata.pin_code}/>
-            <MText text1={"Price"} text2={modaldata.total} backgroundColor={'#d4d0d0'}/>
-            <MText text1={"Reciever"} text2={modaldata.user}/>
-            <MText text1={"Generator"} text2={modaldata.fromUser} backgroundColor={'#d4d0d0'}/>
-            <MText text1={"Side"} text2={modaldata.side}/>
-            <MText text1={"Type"} text2={modaldata.type} backgroundColor={'#d4d0d0'}/>
-            <MText text1={"Status"} text2={modaldata.status}/>
-            <MText text1={"Closing Date"} text2={modaldata.closing_date} backgroundColor={'#d4d0d0'}/>
+            <MText text1={"Ref.Code"} text2={modaldata.pin_code?modaldata.pin_code:""}/>
+            <MText text1={"Price"} text2={modaldata.total?modaldata.total:""} backgroundColor={'#d4d0d0'}/>
+            <MText text1={"Reciever"} text2={modaldata.user?modaldata.user:""}/>
+            <MText text1={"Generator"} text2={modaldata.fromUser?modaldata.fromUser:""} backgroundColor={'#d4d0d0'}/>
+            <MText text1={"Side"} text2={modaldata.side?modaldata.side:""}/>
+            <MText text1={"Type"} text2={modaldata.type?modaldata.type:""} backgroundColor={'#d4d0d0'}/>
+            <MText text1={"Status"} text2={modaldata.status?modaldata.status:""}/>
+            <MText text1={"Closing Date"} text2={modaldata.closing_date?modaldata.closing_date:""} backgroundColor={'#d4d0d0'}/>
         </View>
       </Modal>
     </SafeAreaView>

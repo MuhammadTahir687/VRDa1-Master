@@ -90,7 +90,7 @@ export default StyleSheet.create({
   timerh:{marginTop:5,fontWeight:"bold"},
   comitem:{fontSize:16,fontWeight:"bold"},
   comitem2:{fontSize:16,marginLeft:10},
-  comitem1:{fontSize:16,marginLeft:10,fontWeight:"bold"},
+  comitem1:{marginLeft:10,fontWeight:"normal"},
 
   activityfeeditemh:{marginLeft:10,fontSize:16,fontWeight:"bold"},
 
@@ -153,6 +153,7 @@ export default StyleSheet.create({
   wh:{fontWeight:"bold",marginLeft:20,marginVertical:0},
 
   allcomreportlist:{flex:1,backgroundColor: "white",marginHorizontal: 5,marginVertical: 5,borderRadius: 10,elevation: 6,alignItems: "flex-start", justifyContent: "center", paddingVertical:10,paddingHorizontal:10,borderWidth:4,borderColor:"black"},
+  allcomreportlist1:{flex:1,backgroundColor: "white",marginHorizontal: 5,marginVertical: 5,borderRadius: 10,elevation: 6,alignItems: "flex-start", justifyContent: "center", paddingVertical:10,paddingHorizontal:10,borderWidth:4,borderColor:"black"},
   profileimgstyle:{ width: 100, height: 100, borderWidth: 5,borderColor: "white", borderRadius: 50, backgroundColor: "black", alignSelf: "center",},
   activityind:{flex:1,justifyContent:"center",alignItems:"center",alignSelf:"center",position:"absolute", left: 0, right: 0, top: 0, bottom: 0},
 
@@ -176,7 +177,7 @@ export default StyleSheet.create({
   item1title:{paddingVertical:0,fontSize:15},
     item2:{ flex:1,flexDirection:"row",marginVertical: 0,justifyContent:"center",paddingVertical:10,marginHorizontal:20,alignItems:"center",alignSelf:"center",borderRadius:5,borderWidth:1},
 
-    wpickercontainer:{marginHorizontal: "6%", borderBottomWidth: 2, borderBottomColor: "black", marginBottom: 0},
+    wpickercontainer:{marginHorizontal: "6%", borderBottomWidth: 2, borderBottomColor: "black"},
   wheadings:{fontWeight: "bold"},
   winput:{borderBottomWidth: 2, borderBottomColor: "black", marginHorizontal: 20},
 
@@ -256,7 +257,8 @@ export default StyleSheet.create({
     warningtext:{paddingHorizontal:10,fontSize:12,textAlign:"justify"},
 
     btcqrcodeimage:{width:100,height:100,marginHorizontal:10,marginVertical:10,resizeMode:"contain"},
-    usdttrc:{backgroundColor:"black",color:"white",paddingHorizontal:10,borderRadius:5,marginLeft:5}
+    usdttrc:{backgroundColor:"black",color:"white",paddingHorizontal:10,borderRadius:5,marginLeft:5},
+    modalmaincontainer:{ backgroundColor: "white", alignSelf: "center", width: "98%", borderRadius: 20,paddingBottom:25},
 
 
 

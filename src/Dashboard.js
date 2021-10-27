@@ -16,7 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import * as Progress from "react-native-progress";
 import { getBackgroundColor } from "react-native/Libraries/LogBox/UI/LogBoxStyle";
 import Cal from "./Calendar";
-import { Calendar,Timeline} from "react-native-calendars";
+import {Calendar, CalendarProvider, ExpandableCalendar, Timeline} from "react-native-calendars";
 import Agend from "./Agenda";
 import axios from "axios";
 import { GETAPI } from "./API/APIResponse";
@@ -32,6 +32,7 @@ import { sameDate } from "./Components/SameDate";
 import XDate from 'xdate';
 
 export default function Dashboard() {
+
 
   const [lbv, setLbv] = useState(0);
   const [rbv, setRbv] = useState(0);
@@ -56,9 +57,10 @@ export default function Dashboard() {
   const [enddate,setEnddate]=useState('')
   const [eventtitle,setEventTilte]=useState('')
   const [eventdescription,setEventdescription]=useState('')
-  useEffect(async () => {await response(),date()}, []);
+
+    useEffect(async () => {response(),date()}, []);
   const date = () => {
-    var a = new Date().getDate();
+    var a = new Date().getDate()-1;
     var b = new Date().getMonth()+1;
     var c = new Date().getFullYear();
     setCurrentDate(c+'-'+b+'-'+a)
@@ -98,7 +100,7 @@ export default function Dashboard() {
     { title: "Weekly Earned", value: wearning },
     { title: "Total Earned", value: tearned },
   ];
-  const EVENTS = event.map(item =>({ start:item.event_start,end:item.event_end,title:item.event_title,summary:item.description}))
+  const EVENTS = event.map(item =>({ start:item.event_start,end:item.event_end,title:item.event_title,summary:item.description,color:"#585555"}))
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>

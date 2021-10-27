@@ -66,9 +66,9 @@ export default function Comission() {
         <FlatList data={getdata}
                   renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => {setItem(item),setModalVisible(true)}} style={styles.allcomreportlist}>
-                      <Text style={styles.comitem}>Transaction {item.transactions}</Text>
-                      <Text style={styles.comitem}>{item.closing_date}</Text>
-                      <Ionicons name="eye" size={18}/>
+                      <Text style={styles.comitem}>Transaction ({item.transactions})</Text>
+                      <Text >Closing Date: {item.closing_date}</Text>
+                      {/*<Ionicons name="eye" size={18}/>*/}
                     </TouchableOpacity>
                   )}
         />
@@ -84,10 +84,10 @@ export default function Comission() {
               <Ionicons name="close" size={15} color="white" style={styles.closeicon} />
             </TouchableOpacity>
           </View>
-          <MText text1={"Transaction"} text2={item.transactions} />
-          <MText text1={"Total (50)"} text2={item.total} backgroundColor={"#bfbfbf"} />
-          <MText text1={"70% (900)"} text2={parseFloat(item.percent_70).toFixed(1)+'%'} />
-          <MText text1={"30% (400)"} text2={parseFloat(item.percent_30).toFixed(1)+'%'} backgroundColor={"#bfbfbf"}  />
+          <MText text1={"Transaction"} text2={item.transactions?item.transactions:""} />
+          <MText text1={"Total (50)"} text2={item.total?item.total:""} backgroundColor={"#bfbfbf"} />
+          <MText text1={"70% (900)"} text2={parseFloat(item.percent_70).toFixed(1)+'%'?item.percent_70:""} />
+          <MText text1={"30% (400)"} text2={parseFloat(item.percent_30).toFixed(1)+'%'?item.percent_30:""} backgroundColor={"#bfbfbf"}  />
           <View style={styles.  modaldatacontainers}>
             <Text style={styles.modaldatatexts}>Status</Text>
             <Progress.Bar progress={0.8} color="#39f108" style={styles.pgbarmodal} width={100} />

@@ -51,7 +51,7 @@ export default function TeamSale() {
       />
       {show==true?
         <Modal isVisible={isModalVisible}>
-          <View style={{ height:250, backgroundColor: "white", alignSelf: "center",width:"98%", borderRadius: 20 }}>
+            <View style={styles.modalmaincontainer}>
             <View style={styles.modaluser}>
               <View style={styles.modalh}>
                 <Ionicons name="person" size={15} color="white" />
@@ -61,11 +61,11 @@ export default function TeamSale() {
                 <Ionicons name="close" size={15} color="white" style={{ margin: 5, borderRadius: 50 }} />
               </TouchableOpacity>
             </View>
-            <MText text1={"Package Name"} text2={item.package_name} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"Side"} text2={item.position} backgroundColor={"transparent"}/>
-            <MText text1={"BV"} text2={item.package_business_volume} backgroundColor={"#bfbfbf"}/>
-            <MText text1={"User"} text2={item.usedBy} backgroundColor={"transparent"}/>
-            <MText text1={"Date"} text2={item.used_at} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Package Name"} text2={item.package_name?item.package_name:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Side"} text2={item.position?item.position:""} backgroundColor={"transparent"}/>
+            <MText text1={"BV"} text2={item.package_business_volume?item.package_business_volume:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"User"} text2={item.usedBy?item.usedBy:""} backgroundColor={"transparent"}/>
+            <MText text1={"Date"} text2={item.used_at?item.used_at:""} backgroundColor={"#bfbfbf"}/>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>
