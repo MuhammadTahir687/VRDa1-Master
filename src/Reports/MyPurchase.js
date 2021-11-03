@@ -48,9 +48,10 @@ export default function MyPurchase() {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity onPress={() => {setItem(item),setShow(true),setModalVisible(true)}} style={styles.allcomreportlist}>
-                    <Text style={styles.comitem}>Ref.Code {item.code}</Text>
-                    <Text style={styles.comitem}>Price  <Text style={{fontSize:15,fontWeight:"normal"}}>{item.package_price}</Text></Text>
-                    <Ionicons name="eye" size={18} />
+                    <Text style={styles.comitem1}>Ref.Code {item.code}</Text>
+                    <Text style={styles.comitem1}>Price {item.package_price}</Text>
+                      <Text style={styles.comitem1}>Creation Date {item.created_at}</Text>
+
                   </TouchableOpacity>
                 )}
       />
@@ -73,7 +74,7 @@ export default function MyPurchase() {
             <MText text1={"VREIT Points"} text2={item.tokens_assigned?item.tokens_assigned:""} backgroundColor={"transparent"}/>
             <MText text1={"VREIT Bonus"} text2={item.extra_tokens_assigned?item.extra_tokens_assigned:""} backgroundColor={"#bfbfbf"}/>
             <MText text1={"VREIT Points Price"} text2={item.per_token_price?item.per_token_price:""} backgroundColor={"transparent"}/>
-            <MText text1={"VREIT Points Price"} text2={item.used_at?item.used_at:""} backgroundColor={"#bfbfbf"}/>
+            <MText text1={"Creation Date"} text2={item.used_at?item.used_at:""} backgroundColor={"#bfbfbf"}/>
           </View>
         </Modal> : <View></View> }
     </SafeAreaView>

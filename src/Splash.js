@@ -17,7 +17,7 @@ const Splash = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ImageBackground source={require("./Assets/splash.png")} style={{ width: "100%", height: "100%" }}>
+      <ImageBackground source={require("./Assets/splashwithlogin.png")} style={{ width: "100%", height: "100%" }}>
       </ImageBackground>
     </SafeAreaView>
   );

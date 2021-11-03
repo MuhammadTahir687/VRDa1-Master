@@ -45,9 +45,8 @@ export default function TransferHistory() {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity onPress={() => {setItem(item),setShow(true),setModalVisible(true)}} style={styles.allcomreportlist}>
-                    <Text style={styles.comitem}>Ref.Code {item.code}</Text>
-                    <Text style={styles.comitem}>{item.created_at}</Text>
-                    <Ionicons name="eye" size={18} />
+                      <Text style={styles.comitem1}>Ref.Code {item.code}</Text>
+                      <Text style={styles.comitem1}>Creation Date {item.created_at}</Text>
                   </TouchableOpacity>
                 )}
       />

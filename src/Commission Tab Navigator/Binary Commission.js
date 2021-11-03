@@ -51,10 +51,8 @@ export default function BinaryComission() {
                     setModalVisible(true);
                   }} style={styles.allcomreportlist}>
                       <Text style={styles.comitem}>{item.pin_code}</Text>
-                      {/*<Text style={{fontSize:15}}>{item.pin_code}</Text>*/}
                       <Text style={styles.comitem}>Total  <Text style={{fontSize:15,fontWeight:"normal"}}>({item.total})</Text></Text>
                       <Text style={styles.comitem}>Status  <Text style={{fontSize:15,fontWeight:"normal"}}>({item.status})</Text></Text>
-                      {/*<Ionicons name="eye" size={18}  />*/}
                   </TouchableOpacity>
                 )}
       />

@@ -62,7 +62,7 @@ export default StyleSheet.create({
   cardicon:{color:"white",marginTop:5},
 
   dashboardh1:{ fontWeight: "bold", fontSize: 20, marginLeft: 10},
-    dashboardh2:{ fontWeight: "bold", fontSize: 20, marginLeft: 10,textDecorationLine:"underline",textAlign:'center'},
+    dashboardh2:{ fontWeight: "bold", fontSize: 15, marginLeft: 10,textDecorationLine:"underline",textAlign:'center'},
   pg1container:{flex:1,flexDirection:"row",marginHorizontal:10,marginVertical:10},
   pgbottomcontainer:{ flex: 1, flexDirection: "row", justifyContent: "space-between" },
   pgbottomtext:{fontSize:12,marginHorizontal:10},
@@ -89,6 +89,7 @@ export default StyleSheet.create({
   timercard:{flex:1,alignItems:"center",backgroundColor:"white",borderRadius:20,marginHorizontal:20,marginVertical:10,elevation:10},
   timerh:{marginTop:5,fontWeight:"bold"},
   comitem:{fontSize:16,fontWeight:"bold"},
+    comitem3:{fontSize:16,marginLeft:10},
   comitem2:{fontSize:16,marginLeft:10},
   comitem1:{marginLeft:10,fontWeight:"normal"},
 

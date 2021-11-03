@@ -45,9 +45,8 @@ export default function PurchaseRequest() {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item, index }) => (
                   <TouchableOpacity onPress={() => {setItem(item),setShow(true),setModalVisible(true)}} style={styles.allcomreportlist}>
-                    <Text style={styles.comitem}>{item.package.title}</Text>
-                    <Text style={styles.comitem}>{item.created_at}</Text>
-                    <Ionicons name="eye" size={18} />
+                    <Text style={styles.comitem1}>Package Name: {item.package.title}</Text>
+                    <Text style={styles.comitem1}>Created At {item.created_at}</Text>
                   </TouchableOpacity>
                 )}
       />
